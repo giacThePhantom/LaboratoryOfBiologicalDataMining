@@ -1,0 +1,30 @@
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetKwComment{comment}{$\%$}{}
+\SetKw{Int}{int}
+\SetKw{To}{to}
+\SetKw{Not}{not}
+%\SetKw{Not}{not}
+\SetKwData{Item}{item}
+\SetKwFunction{Min}{min}
+\SetKwFunction{PC}{$PC_{pop}$}
+
+\caption{\protect\PC{$V$}}
+l = -1\;
+C = $\tilde{C}$\;
+\Repeat{for each ordered pair of adjacend nodes $i,j:|adj(C,i)\backslash\{j\}|< l$}{
+	l += 1\;
+	\Repeat{all ordered pairs of adjacent variables $i$ and $j$ such that $|adj(C,i)\backslash\{j\}\ge l$ and $k\subseteq adj(C,i)\backslash\{j\}$ with $|k| = l$ have been tested for conditional independence}{
+		Select a new ordered pair of nodes $i,j$ that are adjacent in $C$ such that $|adj(C,i)\backslash\{j\}|ge l$\;
+		\Repeat{edge $i,j$ is deleted or all $k\subseteq adj(C,i)\backslash\{j\}$ with $|k| = l$ have been chosen}{
+			Choose new $k\subseteq adj(C,i)\backslash\{j\}$ with $|k| = l$\;
+			\If{$i\land j$ are conditionally independent given $k$}{
+				Delete edge $i,j$\;
+				Denote this new graph by $C$\;
+				Save $k$ in $S(i,j)$ and $S(j,i)$\;
+			}
+		}
+	}
+}
+\Return Estimated skeleton $C$, separation sets $S$\;
+\end{algorithm}

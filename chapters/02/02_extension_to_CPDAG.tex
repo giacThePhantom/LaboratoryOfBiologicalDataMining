@@ -1,0 +1,30 @@
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetKwComment{comment}{$\%$}{}
+\SetKw{Int}{int}
+\SetKw{To}{to}
+\SetKw{Not}{not}
+\SetKw{All}{all}
+\SetKw{RA}{R1}
+\SetKw{RB}{R2}
+\SetKw{RC}{R3}
+\SetKw{RD}{R4}
+\SetKwData{Item}{item}
+\SetKwFunction{Min}{min}
+\SetKwFunction{PC}{Extending\_to\_CPDAG}
+
+\caption{\protect\PC{$G_{skel}, S$}}
+\For{\All pairs of non adjacent $i,j$ with common neighbour $k$}{
+	\If{$k\not\in S(i,j)$}{
+		Replace $i-k-j\in G_{skel}$ with $i\rightarrow k\leftarrow j$\;
+	}
+}
+In the resulting PDAG try to orient as many undirected edges as possible by repeated application of:\;
+\RA orient $j-k$ into $j\rightarrow k$ whenever there is $i\rightarrow j$ such that $i$ and $k$ are non-adjacent.\;
+\RB orient $i-j$ into $i\rightarrow j$ whenever there is a chain $i\rightarrow k\rightarrow j$.\;
+\RC orient $i-j$ into $i\rightarrow j$ whenever there are two chains $i-k\rightarrow j$ and $i-l\rightarrow k$ such that $k$ and $l$ are non-adjacent.\;
+\RD orient $i-j$ into $i\rightarrow j$ whenever there are two chains $i-k\rightarrow l$ and $k\rightarrow l\rightarrow j$ such that $k$ and $l$ are non-adjacent\;
+\Return CPDAG $G$\;
+
+
+\end{algorithm}

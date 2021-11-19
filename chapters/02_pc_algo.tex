@@ -1,0 +1,115 @@
+\chapter{PC algorithm}
+
+\section{Estimating high-dimensional directed acyclic graphs with the PC-algorithm}
+
+	\subsection{Introduction}
+	Graphical models are a popular probabilistic tool to analyse and visualize conditional independence relationships between random variables.
+	The major building blocks of these models are nodes (the random variables) and edges (conditional dependence).
+	The structure of conditional independence among the random variables can be explored using the Markov properties.
+	The estimation of a DAG from data is difficult due to the enormous size of the space of DAGs.
+	The PC-algorithm is an alternative to greedy or structurally restricted approaches.
+	It starts from a complete, undirected graph and deletes recursively edges based on conditional independence decisions.
+	This yields an undirected graph that can be partially directed and further extended to represent the underlying DAG.
+	This algorithm runs in the worst case in exponential time, but if the true underlying DAG is sparse, it is reduced to a polynomial runtime.
+	Here there is a focus on estimating the equivalence class and the skeleton of DAGs corresopnding to multivariate Gaussian distributions in high-dimensional context, or where the number of nodes $p$ may be much larger than the sample size $n$.
+
+	\subsection{Finding the equivalence class of a DAG}
+	Let $G=(V,E)$ a graph.
+	The set of vertices $V$ corresponds to the components of a random vector $\vec{X}\in\mathbb{R}^p$.
+	A probability distribution $P$ on $\mathbb{R}^p$ is said to be faithful with respect to $G$ if conditional independences of the distribution can be inferred from $d$-separation in $G$.
+	Consider a random vector $\vec{X}\sim P$.
+	Faithfulness of $P$ with respect to $G$ means that for any $i,j\in V$ with $i\neq j$ and any set $s\subseteq V$:
+
+	$$\vec{X}^{(i)}\land \vec{X}^{(j)}\text{ are conditionally independent given } \{\vec{X}^{(r)}|r\in s\}\Leftrightarrow i\land y \text{ are d-separated by } s$$
+
+	Faithfulness is ruling out some classes of probability distributions.
+	The skeleton of a $DAG$ is the undirected graph obtained from $G$ by substituting undirected edges for directed ones.
+	A $v$-structure in a DAG is an ordered triple of node such that $(i,j)\in G\land (k,j)\in G\land (i,k)\not\in G$.
+	Two DAGs are equivalent is and only is they have the same skeleton and v-structures.
+	If $P$ is faithful with respect to a DAG $G$ there is an edge between node $i$ and $j$ in the skeleton of DAG $G$ is and only if $\forall s\subseteq V\backslash\{i,j\}, \vec{X}^{(i)}\land \vec{X}^{(j)}$ are conditionally dependent given $\{\vec{X}^{(r)},r\in s\}$.
+	If $P$ is faithful with respect to a DAG $G$ the skeleton of the DAG is a subset to the conditional independence graph corresponding to $P$.
+	Every edge in the skeleton indicates some strong dependence which cannot be explained by accounting for other variables.
+
+		\subsubsection{PC-algorithm for finding the skeleton}
+		The PC-algorithm betters from a naive strategies that checks for conditional independences given all subsets.
+
+			\paragraph{Population version}
+			In the population version of the PC-algorithm perfect knowledge about all necessary conditional independence relations is assumed available.
+
+			\input{chapters/02/01_pc_pop_algorithm}
+
+			The maximal value of $l$ is denoted $m_{reach}$ and depends on the underlying distribution.
+			Considering a DAG $G$ and assume that the distribution $P$ is faithful to $G$.
+			Denote the maximal number of neighbours by $q = \max\limits_{1\le j\le p}|adj(G,j)|$.
+			Then the $PC_{pop}$ algorithm construct the true skeleton of the DAG.
+			Moreover $m_{reach}\in\{q-1,q\}$.
+
+			\paragraph{Sample version}
+			For finite sample there is a need to estimate conditional independencies.
+			Assuming faithful models (conditional independence relations correspond to d-separations) in the Gaussian case conditional independences can be inferred from partial correlations.
+			Assume that distribution $P$ of the random vector $\vec{X}$ is a multivariate normal.
+			For $i\neq\in\{1,\dots,p\}, k\subseteq\{1,\dots, p\}\backslash\{i,j\}$, denote $\rho_{i,j|k}$ the partial correlation between $\vec{X}^{(i)}$ and $\vec{X}^{(j)}$ given $\{\vec{X}^{(r)}, r\in k\}$ then $\rho_{i,j|k} = 0$ if and only if $\vec{X}^{(i)}$ and $\vec{X}^{(j)}$ are conditionally independent given $\{\vec{X}^{(r)}, r\in k\}$.
+			The partial correlations can be estimated and the sample partial correlation $\hat{\rho}_{i,j|k}$ can be calculated, for some $h\in k$:
+
+			$$\rho_{i,j|k} = \frac{\rho_{i,j|k\backslash h}-\rho_{i,h|k\backslash h}\rho_{j,h|k\backslash h}}{\sqrt{(1-\rho^2_{i,h|k\backslash h})(1-\rho^2_{j,h|k\backslash h})}}$$
+
+			For testing whether a partial correlation is zero or not Fisher's z-transform is applied:
+
+			$$Z(i,j|k) = \frac{1}{2} \log(\frac{1=\hat{\rho}_{i,j|k}}{1-\hat{\rho}_{i,j|k}})$$
+
+			The null hypothesis is rejected $H_o(i,j|k):\rho_{i,j|k} = 0$ against the two sided alternative $H_A(i,j|K): \rho_{i,j|k} \neq 0$ if $\sqrt{n-|k|-3}Z(i,j|k)>\Phi^{-1}(1-\frac{\alpha}{2})$, where $\Phi$ denotes the cdf of $\mathcal{N}(0,1)$.
+			The sample version of the PC-algorithm is the same of the population version, with the if statement replaced by $\sqrt{n-|k|-3}Z(i,j|k)>\Phi^{-1}(1-\frac{\alpha}{2})$.
+			This algorithm yields a data-dependent $\hat{m}_{reach,n}$.
+			The only tuning parameter is $\alpha$, the significance level for testing partial correlations.
+			This algorithm is asymptotically consistent even if $p$ is much larger than $n$ but the DAG is sparse.
+
+		\subsubsection{Extending the skeleton to the equivalence class}
+		While finding the skeleton the separations sets that made edges drop out were recorded by $S$.
+		This is essential for extending the skeleton to the equivalence class.
+
+			\input{chapters/02/02_extension_to_CPDAG}
+
+\section{A computing system for discovering causal relationships among human genes to improve drug repositioning}
+The gene\@home project aims to expand gene networks using transcriptomic datasets.
+For human data the objective is to provide a public resource to navigate and combine results by expanding each single human transcript.
+The platform hosted the NE$S^2$RA algorithm.
+Starting from a local gene network LGN based on previous biological knowledge, its expansion consists in a set of genes and a list of interactions which describe putative causal relationships with the genes in the LGN.
+The expansion is calculated on observational gene expression data organized in a coherent normalized data matrix.
+To overcome the problem of unique elaborations OneGenE has been developed.
+The list of gene expansions is calculated for each gene in an organism by systematically running single-gene NE$S^2$RA expansions with fixed parameters and then combine them afterwards to simulate LGN expansions.
+The expansions of the gene networks is based on the transcriptomic dataset provided by the FANTOM project.
+Their data comes from sequencing of RNA extracted from different samples of human tissues and cell lines and contains expression profiles of $201802$ gene isoforms.
+Drug repositioning is an alternative approach for the discovery of new therapeutic opportunities for already approved medicines.
+This method, which relies on previous knowledge, speeds up the approval procedure of the drug regulators and can represent a valuable approach.
+
+	\subsection{Method}
+	OneGenE is a method to compute ranked candidate gene lists that expands known local gene networks given gene expression data.
+	It is gbased on the systematic and iterative application of the skeleton function of the PC algorithm on subsets of the input data.
+	Candidate expansion lists are pre-computed for each gene of the target organism.
+	Secondly a set of transcript of interest LGN is provided as input and the intermediate results are aggregated.
+
+		\subsubsection{Data and input}
+		The algorithm starts with an $n\times m$ gene expression data matrix $E$, where $n=|S|$ is the number of transcripts $S$ and $m$ is the number of samples and a set of parametertuples $\Theta = \{\theta\} = \{(\alpha, d, i)|\alpha\in A, d\in D, i\in I\}$ where $A$, $D$ and $I$ are the sets of alpha values, tile sizes and the number of iterations.
+
+		\subsubsection{Nested loop}
+		For each transcript $g$ in $S$, $p$ instances of PC-IM are executed, where $p=|\Theta| = |A||D||I|$.
+		The internal loop receive as input a single gene $g$ with probability vbector $\Pi = 1$.
+		The internal loop comprises the subsetting of the transcripts, the run of PC-skeleton on each subset and the computation of absolute frequencies, relative frequencies and the corresponding order of the candidates list.6
+
+		\subsubsection{Pre-computation result}
+		In OneGenE the ranking aggregation is postponed.
+		Each PC-IM returns a candidate expansion list $l_{g,\theta}$ for each tuple of parameters corresponding to the set of lists resulting from the algorithm.
+		The candidate lists are stored and the data is ready to be queried.
+
+		\subsubsection{Ranking or list aggregation}
+		Let $S_{LGN}$ be the set of transcripts in an input LGN and $l_{g,\theta}$ the candidate expansion list of $g$ with parameters $\theta$.
+		The final candidate expansion list is obtained combining $\mathcal{L} = \{l_{g,\theta}| g\in S_{LGN}, \theta\in\Theta\}$ by means of a ranking aggregator.
+		High relative frequency provides evidence of a putative direct causal relationship.
+		Ranks are instead useful for comparing list and prioritization.
+
+	\subsection{Data and running paramters}
+	The human transcriptome data have been obtained from the FANTOM5 project.
+	It was generated using single molecule CAGE or cap analysis gene expressione.
+	Normalized expression values are extimated as transcripts per milion TPM.
+	The data has been filtered removing unknown transcripts and with absent or low expression values among almost all samples.
+	The single gene NE$S^2$RA expansion where submitted with a tile size of $1000$, $1000$ iterations and $\alpha=0.05$.
