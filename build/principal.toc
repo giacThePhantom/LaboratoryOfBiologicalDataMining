@@ -16,3 +16,9 @@
 \contentsline {paragraph}{\numberline {2.1.2.1.2}Sample version}{5}{paragraph.2.1.2.1.2}%
 \contentsline {subsubsection}{\numberline {2.1.2.2}Extending the skeleton to the equivalence class}{6}{subsubsection.2.1.2.2}%
 \contentsline {section}{\numberline {2.2}A computing system for discovering causal relationships among human genes to improve drug repositioning}{6}{section.2.2}%
+\contentsline {subsection}{\numberline {2.2.1}Method}{7}{subsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.1}Data and input}{7}{subsubsection.2.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.2.1.2}Nested loop}{7}{subsubsection.2.2.1.2}%
+\contentsline {subsubsection}{\numberline {2.2.1.3}Pre-computation result}{7}{subsubsection.2.2.1.3}%
+\contentsline {subsubsection}{\numberline {2.2.1.4}Ranking or list aggregation}{7}{subsubsection.2.2.1.4}%
+\contentsline {subsection}{\numberline {2.2.2}Data and running paramters}{7}{subsection.2.2.2}%

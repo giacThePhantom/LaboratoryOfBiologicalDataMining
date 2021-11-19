@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.5.23)  19 NOV 2021 17:01
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.5.23)  19 NOV 2021 17:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -649,7 +649,7 @@ Package mhchem Warning: You did not specify a 'version' option for the mhchem
 (mhchem)                different output with the same input in future versions
 .
 
-)) (build/principal.aux)
+)) (./build/principal.aux)
 \openout1 = `principal.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 9.
@@ -722,7 +722,7 @@ LaTeX Info: Redefining \ref on input line 9.
 LaTeX Info: Redefining \pageref on input line 9.
 LaTeX Info: Redefining \nameref on input line 9.
 
-(build/principal.out) (build/principal.out)
+(./build/principal.out) (./build/principal.out)
 \@outlinefile=\write3
 \openout3 = `principal.out'.
 
@@ -781,7 +781,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (build/principal.toc)
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] (./build/principal.toc)
 \tf@toc=\write4
 \openout4 = `principal.toc'.
 
@@ -822,7 +822,7 @@ ed
 <to be read again> 
                    \relax 
 l.16 \caption{\protect\PC{$G_{skel}, S$}}
-                                         ))
+                                         )
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 22.48724pt, for example:
@@ -831,7 +831,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-10.48724pt}.
 
-[6]
+[6])
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 22.48724pt, for example:
@@ -840,15 +840,15 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-10.48724pt}.
 
-[7] (build/principal.aux)
+[7] (./build/principal.aux)
 Package rerunfilecheck Info: File `principal.out' has not changed.
-(rerunfilecheck)             Checksum: 3C8F19CB8CBCD81E5C4A9E75343D8222;2740.
+(rerunfilecheck)             Checksum: 98FF8707CEA1105090220AB870510115;3033.
  ) 
 Here is how much of TeX's memory you used:
- 18449 strings out of 478994
- 313130 string characters out of 5864751
- 662333 words of memory out of 5000000
- 35613 multiletter control sequences out of 15000+600000
+ 18457 strings out of 478994
+ 313308 string characters out of 5864751
+ 662377 words of memory out of 5000000
+ 35615 multiletter control sequences out of 15000+600000
  424714 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  88i,19n,91p,655b,765s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -869,10 +869,10 @@ ts/type1/public/cm-super/sfbx2074.pfb></usr/share/texmf-dist/fonts/type1/public
 hare/texmf-dist/fonts/type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist
 /fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texmf-dist/fonts/type1/pu
 blic/cm-super/sftt1000.pfb>
-Output written on build/principal.pdf (8 pages, 266589 bytes).
+Output written on ./build/principal.pdf (8 pages, 276141 bytes).
 PDF statistics:
- 201 PDF objects out of 1000 (max. 8388607)
- 171 compressed objects within 2 object streams
- 29 named destinations out of 1000 (max. 500000)
- 105 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 216 PDF objects out of 1000 (max. 8388607)
+ 186 compressed objects within 2 object streams
+ 35 named destinations out of 1000 (max. 500000)
+ 121 words of extra memory for PDF output out of 10000 (max. 10000000)
 
