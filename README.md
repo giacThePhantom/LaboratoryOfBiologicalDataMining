@@ -8,8 +8,8 @@ See this [Github gist](https://gist.github.com/giacThePhantom/e080a777782754542d
 Legend [ ] TO DO [X] DONE [~] IN PROGRESS
 #### Lectures
 	*[X] Lecture_1.pptx
-	*[~] lecture_2.pptx
-	*[ ] gene_home.pptx
+	*[X] lecture_2.pptx
+	*[X] gene_home.pptx
 	*[ ] Lab1_20Sep21.pptx
 	*[ ] Lecture_3.pptx
 	*[ ] discovering_causal_structure_PC_algorithm.pdf
@@ -37,7 +37,7 @@ Legend [ ] TO DO [X] DONE [~] IN PROGRESS
 	*[ ] The book of why_ the new science of cause and effect .pdf
 
 ##### Non-elective
-	*[~] A_Computing_System_for_Discovering_Causal_Relationships_among_Human_Genes_to_Improve_Drug_Repositioning.pdf
+	*[X] A_Computing_System_for_Discovering_Causal_Relationships_among_Human_Genes_to_Improve_Drug_Repositioning.pdf
 	*[ ] network-expantions-by-stratified-variable-subsetting-and-ranking-aggregation.pdf
 	*[ ] gene-network-expansion-via-distributed-volunteer-computing-BOINC.pdf
 	*[ ] Lipids_MFSD2A_SP.pdf

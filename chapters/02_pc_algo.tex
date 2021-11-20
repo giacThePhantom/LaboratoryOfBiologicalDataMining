@@ -32,6 +32,7 @@
 
 		\subsubsection{PC-algorithm for finding the skeleton}
 		The PC-algorithm betters from a naive strategies that checks for conditional independences given all subsets.
+		For the variance PC-stable of this algorithm the deletion of the arc is postponed to the change of $l$ so the result does not depend on the order of the variables and it is parallelizable.
 
 			\paragraph{Population version}
 			In the population version of the PC-algorithm perfect knowledge about all necessary conditional independence relations is assumed available.
@@ -62,6 +63,9 @@
 			This algorithm yields a data-dependent $\hat{m}_{reach,n}$.
 			The only tuning parameter is $\alpha$, the significance level for testing partial correlations.
 			This algorithm is asymptotically consistent even if $p$ is much larger than $n$ but the DAG is sparse.
+			For the gene\@home project, linear correlations between genes are computed using the Pearson coefficient:
+
+			$$r = \frac{\sum\limits_{i=1}^n(X_i-\bar{X})(Y_i-\bar{Y})}{\sqrt{\sum\limits_{i=1}^n(X_i-\bar{X})^2}\sqrt{\sum\limits_{i=1}^n(Y_i-\bar{Y})^2}}$$
 
 		\subsubsection{Extending the skeleton to the equivalence class}
 		While finding the skeleton the separations sets that made edges drop out were recorded by $S$.
@@ -84,10 +88,11 @@ This method, which relies on previous knowledge, speeds up the approval procedur
 
 	\subsection{Method}
 	OneGenE is a method to compute ranked candidate gene lists that expands known local gene networks given gene expression data.
-	It is gbased on the systematic and iterative application of the skeleton function of the PC algorithm on subsets of the input data.
+	It is based on the systematic and iterative application of the skeleton function of the PC algorithm on subsets of the input data.
 	Candidate expansion lists are pre-computed for each gene of the target organism.
 	Secondly a set of transcript of interest LGN is provided as input and the intermediate results are aggregated.
 
+	\input{chapters/02/03_pre_one_gene}
 		\subsubsection{Data and input}
 		The algorithm starts with an $n\times m$ gene expression data matrix $E$, where $n=|S|$ is the number of transcripts $S$ and $m$ is the number of samples and a set of parametertuples $\Theta = \{\theta\} = \{(\alpha, d, i)|\alpha\in A, d\in D, i\in I\}$ where $A$, $D$ and $I$ are the sets of alpha values, tile sizes and the number of iterations.
 
@@ -107,9 +112,66 @@ This method, which relies on previous knowledge, speeds up the approval procedur
 		High relative frequency provides evidence of a putative direct causal relationship.
 		Ranks are instead useful for comparing list and prioritization.
 
-	\subsection{Data and running paramters}
+		\input{chapters/02/04_agg_one_gene}
+
+	\subsubsection{Data and running paramters}
 	The human transcriptome data have been obtained from the FANTOM5 project.
 	It was generated using single molecule CAGE or cap analysis gene expressione.
 	Normalized expression values are extimated as transcripts per milion TPM.
 	The data has been filtered removing unknown transcripts and with absent or low expression values among almost all samples.
 	The single gene NE$S^2$RA expansion where submitted with a tile size of $1000$, $1000$ iterations and $\alpha=0.05$.
+
+	\subsection{Validation}
+	To evaluate the biological pertinence of the single-gene NE$S^2$RA expansion obtained by OneGenE where used gene expansions involving genes of medical relevance for neural motor dideases and hematopoietic tumors.
+	For each expansion, the top scoring $250$ transcripts where considered.
+	OneGenE expansions where benchmarked against a simple Pearson correlation analysis.
+	Starting from the same seed transcript, the top $250$ correlated transcripts were considered and compared to the $250$ transcripts identified by OneGenE.
+	To quantify the overlap among the expansions obtained from the same transcript the Jaccard index was calculated: the number of items shared between the two sets divided by the total number of items in both sets.
+	OneGenE expansions are largely pppulated by distinct genes with respect to the correlation approach.
+	To evaluate the biological pertinence, a functional enrichment was performed and the single-gene expansions consistently achieves higher biological pertinence than the correlation approach using the fraction of pertinent enrichments.
+	Lastly using known protein-protein interaction in STRING, for each of the expansion the list of gene was compared with the list of interactions in STRING.
+	Based on the overlap between the genes and annotated interactions odds ratio values were calculated with outstanding results.
+
+	\subsection{Prostate cancer}
+	$22$ genes expanded as single-gene by NE$S^2$RA on two transcriptomic datasets.
+	First analyse direct interactions within input genes and represent as graphs.
+	Focusing on two networks and aggregating  the expansion list og the genes belonging to it.
+	A comparison with STRING and functional enrichment analyses allowed to understand nature and composition of those networks.
+	After filtering genes alredy known to be related to prostate cancer, query against Gene Drug interaction database identified novel targets for this disease that can support drug repositioning.
+	The functional relationship between the input genes obtained is studied by their mutual interaction: the pair $(x,y)$ of input genes is defined as the presence of gene $x$ into the expansion list of $y$ and viceversa.
+	After a comparison with STRING functional involvement of the networks and the gene composition enrichment analyses with KEGG pathways and gene anthology biological process categories.
+	Finally after filtering the networks for genes already known DGIbd database of gene-drug interaction was queried and retrieved some drugs involved.
+	After that target that may be cytotoxic where removed.
+
+	\subsection{Coronary artery disease}
+	The OneGenE approach was used to identify novel putative drug target for coronary artery disease CAD, considering genes genetically associated with it.
+	The list of those genes has been obtained from open targets.
+	In order to retain the genes most related the expansions list where trimmed containing only the first $N_l=\max\{5, 1-R_l+1\}$, where $R_l$ is the rank based on genetic association derived from open targets.
+	The lists of isoforms were aggregated summing the relative frequencies computed by NE$S^2$RA.
+	Then the list of isoforms was ranked and converted into a ranked list of genes.
+	ToppGene was used to perform enrichment analysis against the biological processes of the gene ontology.
+	To quantify the overlap between the ranked list og genes genetically associated with CAD and the ranked expansion lists obtained from NE$S^2$RA, they used the weighted jaccard similarity: $WJS(\rho, \sigma) = \frac{\sum\limits_{i=1}^n\min(\rho_i, \sigma_i)}{\sum\limits_{i=1}^n\max(\rho_i, \sigma_i)}$, where $\rho_i$ and $\sigma_i$ are the weights corresponding to the same item $i$, the weight of a feature $i$ in a ranked list $\rho$ is computed as $len(\rho)-rank(i)+1$.
+	These scores depend on the length of the list, so they are not comparable.
+	To make them comparable a permutation approach was used to estimate a set of score distributions.
+	For each length $2000$ random list of genes were generated and the WJS was computed and the score distribution associated to that length generated.
+	Then these distributions where used to compute empirical p-values for multiple hypothesis testing.
+
+\section{NESRA}
+Before gene\@home the scientific pipeline consisted of:
+
+\begin{multicols}{2}
+	\begin{itemize}
+		\item Organism choice.
+		\item Finding a suitable gene expression dataset.
+		\item Dataset filtering and imputing.
+		\item Choose target LGN.
+		\item PC-IM parameters test.
+	\end{itemize}
+\end{multicols}
+
+NESRA is a network expansion by variable subsetting and ranking aggregation.
+It systematically and iteratively apply subsetting varying parameters and the list is then aggregated.
+
+\input{chapters/02/05_nesra}
+
+Its successor NE$S^2$RA models, using a probability vector, the confidence of the presence of the genes belonging to the local gene network.

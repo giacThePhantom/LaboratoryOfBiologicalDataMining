@@ -1,0 +1,29 @@
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetKwComment{comment}{$\%$}{}
+\SetKw{Int}{int}
+\SetKw{To}{to}
+\SetKw{Not}{not}
+\SetKw{True}{true}
+\SetKwData{Item}{item}
+\SetKwFunction{Min}{min}
+\SetKwFunction{Top}{top}
+\SetKwFunction{Fre}{fre}
+\SetKwFunction{Min}{min}
+\SetKwFunction{ListAgg}{List\_Aggregation}
+\SetKwFunction{AGG}{List\_Aggregation\_Complete}
+
+\caption{\protect\AGG{$f'_{min}$, $K$, $L$}}
+\While{\True}{
+	$\mathcal{L}_{temp} = \emptyset$\;
+	User selects $T$ set of transcript\;
+	\ForEach{$l_{t, \theta}\in L$ such that $t\in T$}{
+		$\mathcal{L}_{temp} = \mathcal{L}_{temp}\cup \{l_{t, \theta}\}$
+	}
+	Case frequency: $\mathcal{L}_{temp} =$\Fre{$\mathcal{L}_{temp}$, $f'_{min}$}\;
+	Case top $k$: $\mathcal{L}_{temp}$ = \Top{$\mathcal{L}_{temp}$, $K$}\;
+	Case top variable $k_t$: $\mathcal{L}_{temp}$ = \Top{$\mathcal{L}_{temp}$, $K$}\;
+	\Return \ListAgg{$\mathcal{L}_{temp}$}\;
+}
+
+\end{algorithm}

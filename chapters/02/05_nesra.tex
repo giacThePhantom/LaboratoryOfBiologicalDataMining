@@ -1,0 +1,28 @@
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetKwComment{comment}{$\%$}{}
+\SetKw{Int}{int}
+\SetKw{To}{to}
+\SetKw{Not}{not}
+%\SetKw{Not}{not}
+\SetKwData{Item}{item}
+\SetKwFunction{Min}{min}
+\SetKwFunction{Top}{Top}
+\SetKwFunction{Ranking}{Ranking\_Procedure}
+\SetKwFunction{Rankagg}{Ranking\_Aggregation}
+\SetKwFunction{Nesra}{NESRA}
+
+\caption{\protect\Nesra{$I$, $D$, $A$, $k$}}
+\comment{Where $I$ os the set of values of number of iterations, $D$ is the set of values of the subset dimension, $A$ the set of values of the significance level and $k$ the maximum lenght of the list}
+
+L = $\emptyset$\;
+\ForEach{$\alpha\in A$}{
+	\ForEach{$d\in D$}{
+		\ForEach{$i \in I$}{
+			L = L$\cup$\Ranking{$S$, $S_{LGN}$, $E$, $i$, $d$, $\alpha$}\;
+		}
+	}
+}
+L = \Top{L, k}\;
+\Return \Rankagg{L}\;
+\end{algorithm}

@@ -1,0 +1,37 @@
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetKwComment{comment}{$\%$}{}
+\SetKw{Int}{int}
+\SetKw{To}{to}
+\SetKw{Not}{not}
+%\SetKw{Not}{not}
+\SetKwData{Item}{item}
+\SetKwFunction{Min}{min}
+\SetKwFunction{Pre}{Pre-computation-step}
+
+\caption{\protect\Pre{$I$, $D$, $A$, $S$, $E$}}
+L = $\emptyset$\;
+\ForEach{$g\in S$}{
+	\ForEach{$\theta = (\alpha, d, i)\in A\times D\times I$}{
+		\comment{NE$S^2$RA ranking procedure call}
+		\comment{$l_{g, \theta} = RP(S, g, E, 1, i, d, \alpha$, or:}
+		\ForEach{$j\le i$}{
+			Randomly generate a minimal collection of subsets of dimension $d$ of $S$ such that $g$ is in every subset and each transcript is in at least one subset\;
+		}
+		\ForEach{subset}{
+			Run the $PC$-skeleton  on the expression data $E$ restricted to the transcripts of the subset and generate a network\;
+		}
+		\ForEach{$\gamma$ adjacent to $g$ in the network}{
+			\comment{Compute absolute frequency}
+			$f_\gamma$ = numbers of networks where $\gamma$ and $g$ are adjacent\;
+			\comment{Compute relative frequency}
+			$f'_\gamma = \frac{f_\gamma}{\text{numbers of subsets that contains $\gamma$}}$\;
+		}
+		$l_{g,\theta}$ = genes ordered with respect to $f'_\gamma$\;
+		$L = L\cup l_{g, \theta}$
+	}
+}
+\Return $L$
+
+
+\end{algorithm}
