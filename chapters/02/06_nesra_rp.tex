@@ -1,0 +1,48 @@
+\begin{algorithm}[H]
+\DontPrintSemicolon
+\SetKwComment{comment}{$\%$}{}
+\SetKw{Int}{int}
+\SetKw{To}{to}
+\SetKw{Not}{not}
+%\SetKw{Not}{not}
+\SetKwData{Item}{item}
+\SetKwFunction{Min}{min}
+\SetKwFunction{Top}{Top}
+\SetKwFunction{Ranking}{Ranking\_Procedure}
+\SetKwFunction{Rankagg}{Ranking\_Aggregation}
+\SetKwFunction{Nesra}{NESRA-RP}
+
+\caption{\protect\Nesra{$S$, $S_{LGN}$, $\Pi$, $i$, $d$, $\alpha$}}
+
+\ForEach{$g\in S$}{
+	$p_g = 0$\;
+	$f_g = 0$\;
+}
+\comment{Subsets creation}
+\ForEach{$j, 1 \le j \le i$}{
+	h = l\;
+	$S_{temp} = S\backslash S_{LGN}$\;
+	\While{$S_{temp}\neq\emptyset$}{
+		\ForEach{$g_i\in S_{LGN}$}{
+			With probability $\pi_i$: $T_{h, j} = T_{h,j}\cup\{g_i\}$\;
+		}
+		$S_{temp} = S_{temp}\cup(S_{LGN}\backslash T_{h, j})$\;
+		\While{$|T_{h, j}| < d$}{
+			Uniformely random select $g\in S_{temp}$\;
+			$T_{h, j} = T_{h,j}\cup\{g\}$\;
+			$S_{temp} = S_{temp}\backslash\{g\}$\;
+			$p_g = p_g + 1$\;
+		}
+		\If{$S_{temp} = \emptyset\land |T_{h,j}| < d$}{
+			\While{$T_{h,j} < t$}{
+				Uniformely random select $g\in S\backslash T_{h, j}$\;
+				$T_{h, j} = T_{h, j} \cup \{g\}$\;
+				$p_g = p_g + 1$\;
+			}
+		}
+			h += 1\;
+		}
+		$N_j = h$\;
+	}
+
+\end{algorithm}
