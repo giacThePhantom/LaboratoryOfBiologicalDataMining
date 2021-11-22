@@ -38,7 +38,7 @@ Legend [ ] TO DO [X] DONE [~] IN PROGRESS
 
 ##### Non-elective
 	*[X] A_Computing_System_for_Discovering_Causal_Relationships_among_Human_Genes_to_Improve_Drug_Repositioning.pdf
-	*[ ] network-expantions-by-stratified-variable-subsetting-and-ranking-aggregation.pdf
+	*[~] network-expantions-by-stratified-variable-subsetting-and-ranking-aggregation.pdf
 	*[ ] gene-network-expansion-via-distributed-volunteer-computing-BOINC.pdf
 	*[ ] Lipids_MFSD2A_SP.pdf
 	*[ ] autoencoders.pdf

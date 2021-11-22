@@ -175,3 +175,47 @@ It systematically and iteratively apply subsetting varying parameters and the li
 \input{chapters/02/05_nesra}
 
 Its successor NE$S^2$RA models, using a probability vector, the confidence of the presence of the genes belonging to the local gene network.
+NES$S^2$RA or network expansion by stratified subsetting and ranking aggregation tries to solve the problem of finding candidates for gene expansion.
+It alllows to model with a probability the presence of the genes of the network to be expanded in the subset and the sampling is stratified.
+It is based on the PC-algorithm.
+
+	\subsection{Gene network expansion}
+	Given a set $S$ of gene transcripts whose level of expression has been measured $p$ times in different conditions, such that for reach $s_i\in S$ there is a vector $x_i\in\mathbb{R}^p$ of exression levels.
+	Let us assume that there exists a generally unknown ground truth direct graph $G=(S,B)$ wich represents the real causal relationships between the gene transcripts.
+	The discovery of candidate genes for GNE is defined as follows.
+	Given a graph $G=(N,B)$ where $N\subseteq S$ and $B\subseteq N\times N$, find a ranked list of elements of $S\backslah N$ such that the elements of the list are connected or very near to the elements of $N$ in $G$.
+
+	\subsection{NE$S^2$RA}
+	This algorithm as input data the LGN and the probability of each gene of the LGN to be included in the subsets, the set of parameters to be used and the gene expression levels for the considered organisms.
+	THe inlcusion of the LGN in the subsetting step improves the quality of the result because the composition of each subset is influenced by the LGN nodes added.
+	The vector of probability is the representation of the knowledge of the user about the presence of specific genes in the network.
+	Depending on the probabilities genes will be included in the data for the run of the PC-algorithm.
+
+		\subsubsection{Ranking procedure}
+		The ranking procedure contains three steps which create the subsets, execute several calls of the skeleton of the PC-algorithm and compute the transcripts frequency that defines the order of each ranking.
+		The RP takes as parameters the number of iterations, de dimension of the subset, the significance level for the skeleton and the probability vector.
+		The outpu depends on the order of the inputs, mitigated by the different iterations.
+		This procedure returns a ranked list of $k$ elements.
+
+		\input{chapters/02/06_nesra_rp}
+
+		\subsubsection{Subsetting}
+		A subsetting operation is done systematically and iteratively on the whole data set in order to randomly select genes that will be processed by the skeleton PC.
+		It is controlled by iteration and subset size parameters.
+		The subsetting is stratified and genes of the LGN can have increased probability of beein in the subsets.
+		For a given pair of subset a first selection controlled by the probability vector, specifies which genes of the LGN are present in it.
+		The one not selected in the first are considered in the second with uniform probability and then there is a third selection restricted to genes not already present.
+		The probability vector is such that the ith component $\pi_i$ modulates the probability of the precence of the ith gene $g_i$ in the subsets.
+
+		\subsubsection{Aggregation}
+		For each pair subset size and iteration NE$S^2$RA executes a number of skeleton procedures.
+		This yields list of genes, which are combined ranked by their number of appearances.
+		The list of candidate genes is produced applying different ranking aggregation methods on the ranked lists using the number of appearances, Borda Count and MC4 heuristic.
+		The number of appearances counts how many rankings a certain genes has.
+		The Borda Count consists of constructing a matrix $A(m,n)$ with $m$ rows and $n$ columns, corresponding to the genes and the rankings.
+		The element $a_{ij}$ is the rank of gene $i$ on ranking $j$ and a statistic for each gene is computed on the rows of the matrix.
+		The two statistics are the BC-mean and BC-min.
+		The MC4 heuristic is an aggregator based on Markov chains.
+		It computes the transition matrix of the pairwise comparison of all the rankings for each gene.
+		A step in the Markov chain assigns a higher probability to a gene $q$ is $rank(q)< rank(p)$ for a majority of the lists that ranked both.
+		The steady state assigns higher probability to the genes with higher ranks.
