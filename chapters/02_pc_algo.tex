@@ -183,18 +183,18 @@ It is based on the PC-algorithm.
 	Given a set $S$ of gene transcripts whose level of expression has been measured $p$ times in different conditions, such that for reach $s_i\in S$ there is a vector $x_i\in\mathbb{R}^p$ of exression levels.
 	Let us assume that there exists a generally unknown ground truth direct graph $G=(S,B)$ wich represents the real causal relationships between the gene transcripts.
 	The discovery of candidate genes for GNE is defined as follows.
-	Given a graph $G=(N,B)$ where $N\subseteq S$ and $B\subseteq N\times N$, find a ranked list of elements of $S\backslah N$ such that the elements of the list are connected or very near to the elements of $N$ in $G$.
+	Given a graph $G=(N,B)$ where $N\subseteq S$ and $B\subseteq N\times N$, find a ranked list of elements of $S\backslash N$ such that the elements of the list are connected or very near to the elements of $N$ in $G$.
 
 	\subsection{NE$S^2$RA}
 	This algorithm as input data the LGN and the probability of each gene of the LGN to be included in the subsets, the set of parameters to be used and the gene expression levels for the considered organisms.
-	THe inlcusion of the LGN in the subsetting step improves the quality of the result because the composition of each subset is influenced by the LGN nodes added.
+	The inclusion of the LGN in the subsetting step improves the quality of the result because the composition of each subset is influenced by the LGN nodes added.
 	The vector of probability is the representation of the knowledge of the user about the presence of specific genes in the network.
 	Depending on the probabilities genes will be included in the data for the run of the PC-algorithm.
 
 		\subsubsection{Ranking procedure}
 		The ranking procedure contains three steps which create the subsets, execute several calls of the skeleton of the PC-algorithm and compute the transcripts frequency that defines the order of each ranking.
 		The RP takes as parameters the number of iterations, de dimension of the subset, the significance level for the skeleton and the probability vector.
-		The outpu depends on the order of the inputs, mitigated by the different iterations.
+		The output depends on the order of the inputs, mitigated by the different iterations.
 		This procedure returns a ranked list of $k$ elements.
 
 		\input{chapters/02/06_nesra_rp}
@@ -219,3 +219,29 @@ It is based on the PC-algorithm.
 		It computes the transition matrix of the pairwise comparison of all the rankings for each gene.
 		A step in the Markov chain assigns a higher probability to a gene $q$ is $rank(q)< rank(p)$ for a majority of the lists that ranked both.
 		The steady state assigns higher probability to the genes with higher ranks.
+
+			\paragraph{OneGenE}
+			In OneGenE this step is postponed when there is a query.
+			Let $S_{LGN}$ be the set o transcript in an input LGN and $l_{g, \theta}$ the candidate expansion list of the gene $g$ with parameter tuple $\theta$.
+			The final candidate gene expansion list is obtained combining the set of partial result: $\mathcal{L} = \{l_{g, \theta} | g\in S_{LGN}, \theta\in \Theta\}$ by means of a ranking aggregator.
+			Given the set of ranked list the ranking aggregation problem is combining the ranking in it in order to obtain a better final ordering $l^*$.
+
+				\subparagraph{Borda Count}
+				It associates to each element $u$ in a list $l$ a Borda score $B_l(u)$.
+				The final rank of the element $u$ will be computed using an aggregation function: $f(B_1(u), \dots, B_n(u))$.
+				Common aggregation functions are the arithmetic mean or the median.
+
+				\subparagraph{RnakAggreg Package}
+				This algorithm uses local search trying to find $l^* = \arg\min\limits_l\biggl( \sum\limits_{i = 1}^{|\mathcal{L}|} w_i d(l,l_i)\biggr)$
+				Where $w_i$ is the weight associated with list $l_i$ and $d$ is the Kendall Tau or Spearmann distance.
+
+				\subparagraph{RobustRankAggreg package}
+				It is an aggregator based on order statistics.
+				The assumption is that the rank of each element $u$ in lists in $S$ is sampled from a distribution and, once it is known, it can be compared with a null distribution obtained by sampling the ranking uniformly.
+				The aggregator associates at each element a corrected p-value and the final ranking is obtained sorting the elements by p-value.
+
+				\subparagraph{Markov chain method}
+				Markov chain 4 method builds an ergodic Markov chain where each state represents a ranked element using the ranking in $\mathcal{L}$.
+				It is build starting from $u$ and an element $v$ is sampled uniformly.
+				If $v$ is ranked lower for a majority of the lists where both elements are present, it associates a probability of staying in $u$.
+				The final rank is obtained computing the stationary distribution of the chain and sorting the element by their stationary probability.

@@ -1,0 +1,17 @@
+\chapter{Autoencoders}
+
+\section{Introduction}
+An autoencoder is a specific type of a neural network, which is mainly designed to encode the input into a compressed an meaningful representation, and then decode it back such that the reconstructed input is as similar as possible to the original one.
+Their main purpose is learning in an unsupervised manner an informative representation of the data that can be used for various implications.
+The problem is to learn the functions encoder $A:\mathbb{R}^n\rightarrow\mathbb{R}^p$ and decoder $B:\mathbb{R}^p\rightarrow \mathbb{R}^n$ such that:
+
+$$\arg\min\limits_{A, B}\mathbb{E}[\Delta(\vec{x}, B\circ A(\vec{X}))]$$
+
+Where $\mathbb{E}$ is the expectation over the distribution of $\vec{x}$ and $\Delta$ is the reconstruction loss function, which measures the distance between the output of the decoder and the input, typically the $l_2$ norm.
+Typically $A$ and $B$ are neural networks or linear operations (linear autoencoder).
+An autoencoder is a generalization of PCA, where instead of finding a low dimensional hyperplane where the data lies, it is able to learn a non-linear manifold.
+Autoencoders can be trained end-to-end or layer-by-layer.
+In the latter case they are stacked together to a deep encoder.
+
+	\subsection{Regularized autoencoders}
+

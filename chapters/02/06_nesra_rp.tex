@@ -44,5 +44,26 @@
 		}
 		$N_j = h$\;
 	}
+\comment{Skeleton}
+\ForEach{$j, 1\le j\le i$}{
+	\ForEach{$h, 1\le h\le N_j$}{
+		$R_{h,j} = skeleton(T_{h, j}, E, \alpha)$\;
+	}
+}
+\comment{Frequency computation}
+\ForEach{$g\in S$}{
+	\ForEach{$q\in S_{LGN}$}{
+		\ForEach{$j, 1\le j\le i$}{
+			\ForEach{$h, 1\le h\le N_j$}{
+				\If{$g\in Adj_{R_{h,j}}(q)$}{
+					$i = I\cup\{g\}$\;
+					$f_g = f_g + 1$\;
+				}
+			}
+		}
+	}
+	$f'_g = \frac{f_g}{p_g\cdot |S_{LGN}|}$\;
+}
+\Return $I$ ordered with respect to $f'_g$\;
 
 \end{algorithm}
