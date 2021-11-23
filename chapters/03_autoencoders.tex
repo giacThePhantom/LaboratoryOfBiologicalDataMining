@@ -14,4 +14,57 @@ Autoencoders can be trained end-to-end or layer-by-layer.
 In the latter case they are stacked together to a deep encoder.
 
 	\subsection{Regularized autoencoders}
+	Regularization is required since one may get the identity operator for $A$ and $B$ if it is not used.
+	The most common option is to use a bottleneck, making the dimension of the representation smaller than the input.
+	This directly creates a low dimensional representation of the data.
+	It must still be possible to have overfitting if the capacity of the encoder and the decoder is large enough to encode each sample to an index.
+	There are different possibility other than introducing a bottleneck.
+	An important trade-off in autoencoders is the bias-variance trade-off: there is a need for an architecture able to reconstruct the input well.
+	Such low-dimension representation should generalize to a meaningful one.
 
+		\subsubsection{Sparse autencoders}
+		To deal with this trade-off one can enforce sparsity on the hidden activations.
+		This can be added on top of the bottleneck.
+		To enforce sparsity regularization one can use ordinary regularization applied to the activations instead of the weights.
+
+			\paragraph{$L_1$ regularization}
+			$L_1$ regularization introduce sparsity, so the autoencoder optimization objective becomes:
+
+			$$\arg\min\limits_{A,B}\mathbb{E}[\Delta(\vec{x}, B\circ A(\vec{x})] + \lambda\sum\limits_i|a_i|$$
+
+			Where $a_i$ is the activation at the $i$th hidden layer and $i$ iterates over all of them.
+
+			\paragraph{KL-divergence}
+			Another way to enforce sparsity is to use the KL-divergence, a measure of the distance between two probability distributions.
+			Instead of tweaking $\lambda$, one can assume that the activation of each neuron acts as a Bernoulli variable with probability $\hat{p}_j = \frac{1}{m}\sum\limits_ia_i(x)$, where $i$ iterates over the samples in the batch.
+			The overall loss function would be:
+
+			$$\arg\min\limits_{A,B}\mathbb{E}[\Delta(\vec{x}, B\circ A(\vec{x})] + \sum\limits_jKL(p||\hat{p}_j)$$
+
+			Where the regularization term aims at matching $p$ to $\hat{p}$.
+
+		\subsubsection{Denoising autoencoders}
+		Denoising autoencoders can be considered as a regularization option or as robust autoencoders which can be used for error correction.
+		The input is distributed by some noise and the autoencoder is expected to recunstruct the clean version of the input.
+		Common options for $C$, the function that introduces with $\bar{x}$ a random variable are:
+
+		$$C_\sigma(\bar{x}|\vec{x}) = N(\vec{x}, \sigma^2 I)$$
+
+		Where $\sigma$ sets the impact of the noise.
+
+		$$C_p(\bar{x}|\vec{x}) = \beta\odot\vec{x}, \beta\sim Ber(p)$$
+
+		Where $\odot$ is an element-wise (Hadamard) product.
+		Also $p$ sets the probability of a value in $\vec{x}$ not being nullified.
+
+		\subsubsection{Contractive autoencoders}
+		In contractive autoencoders the objective is to make the feature extraction less sensitive to small perturbations forcing the encoder to disregard changes in the input that are not important for the reconstruction by the decoder.
+		To do so a penalty is imposed on the Jacobian of the network, trying to minimize its $L_2$ norm:
+
+		$$\arg\min\limits_{A,B}\mathbb{E}[\Delta(\vec{x}, B\circ A(\vec{x})] + \lambda||J_A(\vec{x}||_2^2$$
+
+		The reconstruction loss function and the regularization loss pull the result towards opposite directions.
+		By minimizing the squared Jacobian norm, all the latent representation of the input tend to be more similar to each other making the reconstruction more difficult.
+		The idea is that those variations that are not important for the reconstruction would be diminished by the regularization factor, while important variations would remain because of their impact on the reconstruction error.
+
+	\subsection{Variational autoencoders}
