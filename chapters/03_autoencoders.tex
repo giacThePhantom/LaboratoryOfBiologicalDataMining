@@ -309,3 +309,116 @@ In the latter case they are stacked together to a deep encoder.
 
 		\subsubsection{Other subtype detection methods}
 		PCA performed poorly, SNF comparable performance to autoencoders, but it has a few additional hyperparameters and the result is sensitive to their selection.
+
+\section{Variational autoencoders for cancer data integration: design principles and computational practice}
+
+	\subsection{Introduction}
+	A complex biologica process is a combination of many simpler processes and its function is greater than the sum of its parts.
+	Integrating and analysing simultaneously different data types offers better understanding of the mechanism.
+	VAEs generate meaningful latent representations of integrated data that can be used for analysis bt a machine learning technique or be deployed on other heterogeneous datasets.
+	The different machine learning approaches that integrate diverse data can be classified in:
+
+	\begin{itemize}
+		\item Output or late integration: different data are modelled separately and the output is the combined.
+		\item Partial or intermediate integration: they produce a joint model learned from multiple data simultaneously.
+		\item Full or early integration: different data is combined before applying a learning algorithm by aggregating them or by learning a common latent representation.
+	\end{itemize}
+
+	Unsupervised learning approaches learn representations by identifying patterns in the data and extracting meaningful knowledge while overcoming data complexities.
+	Autoencoders are variants of deep learning networks that have good performance for unsupervised representation learning.
+	The compressed representation they learn should capture the structure of the data and allow for more accurate downstream analysis.
+	Now variational bayesian inference autoencoders learn the parameters of the underlying distribution of the input data and be utilized as methods for full integration of data.
+	In this way they allow learning representations from heterogeneous data on different scales from different sources.
+
+	\subsection{Materials and methods}
+	VAEs are combined into a number of different architectures for a deep analysis and comparison with respect to specific data features and tasks.
+	They are suitable since they are generative, non-linear, unsupervised and amendable to integrating diverse data.
+
+		\subsubsection{Variational autoencoders}
+		An autoencoder consist of an encoder that maps the high dimensional input data into a latent variable embedding with lower dimension and a decoder that attempts to reconstruct the input data from the embedding.
+		There is a decoder function $f$ and an encoder one $g$.
+		The lower dimensional embedding is $h = g_\phi(x)$ and the reconstructed input $x'=f_\theta(g_\phi(x))$.
+		$\theta$ and $\phi$ are learned together to output a reconstructed data sample ideally the same as the original input.
+		To quantify the error one can use the cross entropy or the mean squared error.
+		The main variants to autoencoders aim to address improving generalization, disentanglement and modification to sequence input models.
+		The VAE uses stochastic inference to approximate the latent variables $z$ as probability distributions.
+		This represents and capture relevant features from the input.
+		The are scalable and can deal with intractable posterior distributions by fitting an approximate inference or recognition model using a reparameterized variational lower bound estimator.
+		The high dimensional data $x$ is drawn from a random variable with distribution $p_{data}(x)$.
+		It asssumes that $x$ lies in a lower dimensional space that can be characterized by an unobserved continuous random variable $z$.
+		The prior $p_\theta(z)$ and likelihood $p_\theta(x|z)$ come from a family of parametric distributions, with its probability density functions differentiable almost everywhere.
+		$\theta$ and the values of $z$ are unknown and VAE approximates $p_\theta(x|z)$ using a recognition model $q_\theta(z|x)$ and the learned parameter $\phi$.
+		A VAE build an inference where given a data-point $x$ it produces a distribution over the latent values $z$.
+		A probabilistic decoder will, given a certain value of $z$, produce a distribution over the possible corresponding values of $x$, constructing the likelihood $p_\theta(x|z)$.
+		Latent variables are tipically assumed centred isotropic multivariate gaussian $p_\phi(z) - N(z;0, I)$ and $p_\theta(x|z)$ a multivariate Gaussian or bernoulli with parameters approximated using a fully connected NN.
+		The posterior is intractable and it is assumed it takes the form of a gaussian with an approximately diagonal covariance.
+		This allows to approximate the true posterior, converting the problem in an optimization one.
+		The variational approximate posterior will be:
+
+		$$q_\phi(z|x^{(i)}) = N(z, \mu^{(i)}, \sigma^{(i)} I)$$
+
+		Where the mean and the variance are outputs of the encoder.
+		The discrepancy between $p_\theta(z)$ and $q_\phi(z|x^{(i)})$ can be directly computed and differentiated.
+		The likelihood will be:
+
+		$$l_i(\theta, \phi) = -\mathbb{E}_{q_\phi(z|x^{(i)})}[\log p_\theta(x|z)] + KL(q)\phi(z|x^{(i)}||p_\theta(z))$$
+
+		There are other choice for the prior other than the Gaussian like a mixture of Gaussians, or like a mixture of approximate posteriors, a Dirichlet process as a non-parametric prior through stick-breaking process, generalizing over the generative process, or a graphical model.
+		Other posteriors are normalizing flows, auto-regressive flows and inverse auto-regressive flows.
+		The influence of the disentanglement factore is controlled using a parameter $\beta$.
+		Other retularizatio nterms can be maximum mean discrepancy MMD instead of KL diveregns.
+
+		$$MMD(q(z)||p(z)) = \mathbb{E}_{p(z), p(z')}[k(z, z')] + \mathbb{E}_{q(z), q(z')}[k(z, z')] -2\mathbb{E}_{q(z), p(z')}[k(z, z')]$$
+
+		Where $k(z, z')$ is any universal kernel.
+
+		\subsubsection{Variational autoencoders for data integration}
+
+			\paragraph{Variational autoencoder with concatenated inputs}
+			In CNC-VAE the encoder is directly trained from different data sets aligned and concatenated at input.
+			Beside this the rest of the architecture is a standard VAE: the input data is first scaled, aligned and concatenated before being fed to the network.
+			It has one objective function that reconstructs the combined data.
+			It aims at reducing redundancies and extracting meaningful structure across all input sources.
+
+			\paragraph{X-shaped variational autoencoder}
+			X-VAE merges high level representations of several heterogeneous data sources into a single latent representation by learning to reconstruct the input data from the common homogeneous representation.
+			The architecture consists of individual branches, one for each data source that are combined into one before the bottleneck layer.
+			In the decoding phase the merged ranch splits again into several branches that produce individual reconstructions of the inputs.
+			It combines different loss functions for each data source, allowing for better learning an more meaningful repreentations.
+
+			\paragraph{Mixed-modal variational autoencoder}
+			MM-VAE attempts to address some of the limitations of X-VAE employing a more gradual integration in the hidden layers of the encoder.
+			It builds upon transfer learning.
+			It consists of branches that individually reconstruct the input data sources, however those share information with each other in the encoding phase.
+			Higher-level concepts are shared between all and used deeper in the network.
+			So the information from different sources can be combined more gradually.
+			The objective function combines different reconstruction loss functions.
+
+			\paragraph{Hiearachical variational autoencoder}
+			H-VAE builds upon meta-learning approaches for combining multiple individual models.
+			It is comprised of several low level VAE that relate to each data source and the result is assembled together in a high-level VAE.
+			Each of the low-level VAEs in emplyed to elarn a representation of an individual data source that are then merged together and fed to another VAE that produces the integrated data representation.
+			The input to the high-level autoencoder implement distribution regularization terms in each of them separately and consist of approximated multivariate standard normal distributions.
+
+		\subsubsection{Experiment setup}
+		The aim of the evaluation is to seek the optimal configuration of choosing the appropriate objective function and parameters.
+		Then evaluate and chose the most appropriate architectures for the data integration task performing a comparative quantitative analysis of the representations obtained from each of the architectures.
+		Finally the results are chosen in terms of their application to cancer data integration.
+		The genes were selected with the most significant Bonferrroni adjusted p-value.
+		After missing data removal the input data consisted of $1000$ fatures.
+		All the datasets where sampled into five-fold cross-validation splits for each classification task.
+		The depth of the architectures remained moderate and constant.
+		All designs expect for MM-VAE the encoder and decoder were symmetric and consisted of compression and decompression dense layers placed before and after data merging.
+		MM-VAI had an additional data-merging layer in the encoder network.
+		They had depth between $2$ and $4$ hidden layers.
+		They all used batch normalization and exponential linear unit activation.
+		They had a hidden dropout with rate $0.2$
+		The final layer employed sigmoid activation function.
+		They used the Adam optimizer with $lr=0.001$ and batch size of $64$.
+		To chose the optimal objective function that consider the reconstruction loss and a regularization term.
+		For the former they used binary cross entropy loss and mean squared error loss.
+		For the latter wighted KL and weighted MMD with different values of $\beta$.
+		To evaluate the quality of the representations thwy used three integrative tasks, training a predictive model on the produced representation and measuring its predictive performance on a binary classification task of IHC cancer subtypes.
+		For this they trained and evaluated a gaussian naive Bayes classifier.
+		Then, they evaluated the performance of three different methods trained on different representation: Gaussian naive Bayes classifiaer, SVMs and Random Forest.
+		These result where compared with the raw data and data transformed with PCA.

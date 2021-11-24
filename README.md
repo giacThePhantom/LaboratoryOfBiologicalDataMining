@@ -43,6 +43,6 @@ Legend [ ] TO DO [X] DONE [~] IN PROGRESS
 	*[ ] Lipids_MFSD2A_SP.pdf
 	*[X] autoencoders.pdf
 	*[X] performance-comparison-of-deep-learning-autoencoders-for-cancer-subtype-detection-using-multi-omics-data.pdf
-	*[ ] variational-autoencoders-for-cancer-data-integration-design-principles-and-computational-practice.pdf
+	*[X] variational-autoencoders-for-cancer-data-integration-design-principles-and-computational-practice.pdf
 	*[ ] causability-and-explainability-of-artificial-intelligence-in-medicine.pdf
 	*[ ] explainable-artificial-infelligence-analytical-review.pdf
