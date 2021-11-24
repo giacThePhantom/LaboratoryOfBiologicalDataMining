@@ -41,7 +41,7 @@ Legend [ ] TO DO [X] DONE [~] IN PROGRESS
 	*[X] network-expantions-by-stratified-variable-subsetting-and-ranking-aggregation.pdf
 	*[X] gene-network-expansion-via-distributed-volunteer-computing-BOINC.pdf
 	*[ ] Lipids_MFSD2A_SP.pdf
-	*[~] autoencoders.pdf
+	*[X] autoencoders.pdf
 	*[ ] performance-comparison-of-deep-learning-autoencoders-for-cancer-subtype-detection-using-multi-omics-data.pdf
 	*[ ] variational-autoencoders-for-cancer-data-integration-design-principles-and-computational-practice.pdf
 	*[ ] causability-and-explainability-of-artificial-intelligence-in-medicine.pdf

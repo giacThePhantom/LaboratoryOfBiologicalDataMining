@@ -68,3 +68,115 @@ In the latter case they are stacked together to a deep encoder.
 		The idea is that those variations that are not important for the reconstruction would be diminished by the regularization factor, while important variations would remain because of their impact on the reconstruction error.
 
 	\subsection{Variational autoencoders}
+	Variational autoencoders VAE follows from variational bayes inference.
+	They aer generative models that attempt to descrive data generation through a probabilistic distribution.
+	Given an observed dataset $X=\{x_i\}^N_{i=1}$ of $V$ samples, a generative model for each datum $x_i$ conditioned on an unobserved random latent variable $z_i$ is assumed, where $\theta$ are the parameters governing the distribution.
+	This is equivalent to a probabilistic decoder.
+	Symmetrically an approximate posterior distribution is assumed over $z_i$ given $x_i$, a probabilistic decoder governed by $\phi$.
+	A prior distribution is assumed for $z_i$: $p_\theta(z_i)$.
+	$\theta$ and $\phi$ need to be learned from data.
+	$z_i$ can be interpreted as a code given by the recognition model $q_\phi(z|x)$/
+	The marginal log-likelihood is expressed as sum over the individual data points $\log p_\theta(x_1, \dots, x_N) = \sum\limits_{i=1}^N\log p_\theta(x_i)$ and each point can be rewritten:
+
+	$$\log p_\theta(x_i) = D_{KL}(q_\phi(z|x_i) || p_\theta(z|x_i)) + \mathcal{L}(\theta, \phi, x_i)$$
+
+	Where the first term is the Kullback-leibler divergence of the approximate recognition model from the true posterior and the second is the variational lower bound on the marginal likelihood:
+
+	$$\mathcal{L}(\theta, \phi, x_i) = \mathbb{E}_{q_\phi(z|x_i)}[-\log q_\phi(z|x) + \log p_\theta(x, z)]$$
+
+	Maximizing this lower bound improves approximation of the posterior and can be expanded as:
+
+	$$\mathcal{L}(\theta, \phi, x_i) = -D_{KL}(q_\phi(z|x_i)||p_\theta(z)) + \mathbb{E}_{q_\phi(z|x_i)}[\log p_\theta(x_i|z)]$$
+
+	Variational inference follows by maximizing this lower bound for all data points with respect to $\theta$ and $\phi$.
+	Given a dataset $X=\{x_i\}^N_{i=1}$ with $N$ data points, the marginal likelihood lower bound of the full dataset can be estimated using a mini-batch of size $M$:
+
+	$$\mathcal{L}(\theta, \phi, x_i) \approx \tilde{\mathcal{L}}^M(\theta, \phi, X^M) = \frac{N}{M}\sum\limits_{i=1}^M\mathcal{L}(\theta, \phi, x_i)$$
+
+	With its gradients approximated using a reparameterization trick and stochastic gradient optimization.
+
+		\subsubsection{The reparameterization trick}
+		The random variable $\tilde{z}\sim q_\phi(z|x)$ can be reparameterized using a differentiable transformation $g_\phi(\epsilon, x)$ using auxiliary noise $\epsilon$ drawn from some distribution:
+
+		$$\mathcal{L}(\theta, \phi, x_i) \approx \tilde{\mathcal{L}}(\theta, \phi, x_i) = \frac{1}{L}\sum\limits_{l=1}^L\log p_\theta(x_i, z_{(i, l)}) - \log q_\phi(z_{(i, l)}|x_i)$$
+
+		Where $z_{(i, l)} = g_\phi(\epsilon_{(i, l)}, x_i)$ with $\epsilon_{(i, l)}$ is random noise.
+		To optimized mini-batch estimates we use the differentiable with respect to $\theta$ and $\phi$ equation:
+
+		$$\hat{\mathcal{L}}^M(\theta, \phi, X) = \frac{N}{M}\sum\limits_{i=1}^M\tilde{\mathcal{L}}(\theta, \phi, x_i)$$
+
+		$L$ can be set to $1$ if $M$ is large enough.
+		Instead of taking the gradient of a single randomized latent representation, the gradients of the generative network are learned by a weighted average of the sample over different samples from its posterior distribution.
+		The weights follows the likelihood functions $q_\phi(z_{(j, l)}|x_i)$.
+
+		\subsubsection{Disentangled autoencoders}
+		The variational lower bound can be viewed as the summation of the reconstruction capability of the samples and the regularization that biases $q_\phi(z|x^{(i)})$ towards the assumed prior $p_\theta(z)$.
+		Disentangled autoencoders introduce another parameter $\beta$ that is a multiplicative factor for the KL divergence:
+
+		$$\mathcal{L}(\theta, \phi, x_i) = -\betaD_{KL}(q_\phi(z|x_i)||p_\theta(z)) + \mathbb{E}_{q_\phi(z|x_i)}[\log p_\theta(x_i|z)]$$
+
+		The prior $p_\theta(z)$ is set as the standard multivariate normal distribution.
+		All the features are uncorrelated and the KL divergence regularize the latent features distribution $q_\phi(z|x^{(i)}$ to a less correlated one.
+		The larger the $\beta$ the less correlated the features will be.
+
+	\subsection{Applications of autoencoders}
+
+		\subsubsection{Generative model}
+		Once the autoencoder is trained, to obtain new data from it one can simply sample random variables from the same prior $p_\theta(z)$ and feed it to the decoder, which would generate a new meaningful sample.
+
+		\subsubsection{Classification}
+		Once the autoencoder is trained in an unsupervised manner one can use its decoder to do feature extraction for classification.
+		The key assumption is that samples with the same label should correspond to some latent presentation.
+		Another approach is to use them as a regularization technique.
+
+		\subsubsection{Clustering}
+		Once the autoencoder is trained in an unsupervised manner one can use its decoder to obtain a low-dimensional representation used to solve the dimensionality problem of clustering.
+		Also during clustering the embeddings aer retrained at each iteration, adding an argument to the autoencoder loss function, penalizing the distance between the embedding and the cluster centre.
+
+		\subsubsection{Anomaly detection}
+		A trained autoencoder would learn the latent subspace of normal samples.
+		Once trained it would result with a low reconstruction error for normal samples and high for anomalies.
+
+		\subsubsection{Dimensionality reduction}
+		The dimensionality reduction is performed by every autoencoder in the bottleneck layer.
+		The non-liearity activation functions often allows for a superior reconstruction when compared to simple PCA.
+
+	\subsection{Advanced autoencoder techniques}
+	Autoencoders' strength is their ability to use their latent representation for different usages, but their reconstructions are usually blurry.
+	The reason for that is the used loss function.
+
+		\subsubsection{Autoencoders and GANs}
+		GANs create results visually compelling but in the cost of the control on the resulting images.
+		So a work has been done to combine autoencoders and GANs.
+		In adversarial autoencoders the KL-divergence in VAE is replaced by a discriminator network that distinguishes between the prior and the approximated posterior.
+		It can be done replacing the reconstruction loss or making the encoder and the discriminator share weights.
+
+			\paragraph{Adversarially learned inference}
+			In adversarially learned inference ALI there is an attempt to merge VAEs and GANs.
+			A discriminator is used to distinguish between $(x, \hat{z})$ pairs, where $x$ is an input and $z\sim q(z|x)$ is sampled from the encoders output and $(\tilde{x}, z)$ pairs, where $z\sim p(z)$ sampled from the prior in VAE and $\tilde{x}\sim p(x|z)$ is the decoder's output.
+
+			\paragraph{Wasserstein autoencoders}
+			Wasserstein-GAN WGAN solve a lot of problems to the learning stability of GANs using the Wasserstein distance for the optimizations loss function.
+			It is the distance between two probabilities:
+
+			$$W_c(P_X, P_G) = \in\limits_{\Gamma\in P(X\sim P_x, Y\sim P_G)}\mathbb{E}_{(X, Y)\sim\Gamma}[c(X, Y)]$$
+
+			Where $c(x, y)$ is some cost function.
+			When $c(x,y) = d^p(x, y)$ is a metric measurement, the $p$-th root of $W_c$ is called the p-Wasserstein distance.
+			When $c(x, y) = d(x, y)$ acn be defined as:
+
+			$$W_1(P_X, P_G) = \sum\limits_{f\in\mathcal{F}} \mathbb{E}_{X\sim P_X}[f(X)] - \mathbb{E}_{Y\sim P_G}[f(Y)]$$
+
+			IN Wasserstein autoencoders the loss function is modified and the objective becomes:
+
+			$$D_{WAE}(P_X, P_G) = \in\limits_{Q(Z|X)\in\mathcal{Q}}\mathbb{E}_{P_X}\mathbb{E}_{Q(Z|X)}[c(X, G(Z))] + \lambda\cdot D_Z(Q_Z, P_Z)$$
+
+			Where $Q$ is is the encoder and $G$ is the decoder.
+			The left part is the new reconstruction loss, which penalizes on the output distribution and the sample distribution.
+
+		\subsubsection{Deep feature conssitenf variational autoencoder}
+		Given an original image and a reconstructed one, a different measure is used that takes into account the correlation between pixels.
+		A pretrained network can be used for creating a loss function for autoencoders.
+		After encoding and decoding an image, both are inserted as input to a pretrained network.
+		Assuming results with high accuracy, and a not so different domain, eac layer can be seen as a successful feature extractor of the input image.
+		THerefore instead of measuring the difference between two images, it can be measured between their representation, imposing a more realistic different measure for the autoencoder.
