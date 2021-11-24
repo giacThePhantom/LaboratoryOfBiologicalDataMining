@@ -113,7 +113,7 @@ In the latter case they are stacked together to a deep encoder.
 		The variational lower bound can be viewed as the summation of the reconstruction capability of the samples and the regularization that biases $q_\phi(z|x^{(i)})$ towards the assumed prior $p_\theta(z)$.
 		Disentangled autoencoders introduce another parameter $\beta$ that is a multiplicative factor for the KL divergence:
 
-		$$\mathcal{L}(\theta, \phi, x_i) = -\betaD_{KL}(q_\phi(z|x_i)||p_\theta(z)) + \mathbb{E}_{q_\phi(z|x_i)}[\log p_\theta(x_i|z)]$$
+		$$\mathcal{L}(\theta, \phi, x_i) = -\beta D_{KL}(q_\phi(z|x_i)||p_\theta(z)) + \mathbb{E}_{q_\phi(z|x_i)}[\log p_\theta(x_i|z)]$$
 
 		The prior $p_\theta(z)$ is set as the standard multivariate normal distribution.
 		All the features are uncorrelated and the KL divergence regularize the latent features distribution $q_\phi(z|x^{(i)}$ to a less correlated one.
@@ -159,17 +159,17 @@ In the latter case they are stacked together to a deep encoder.
 			Wasserstein-GAN WGAN solve a lot of problems to the learning stability of GANs using the Wasserstein distance for the optimizations loss function.
 			It is the distance between two probabilities:
 
-			$$W_c(P_X, P_G) = \in\limits_{\Gamma\in P(X\sim P_x, Y\sim P_G)}\mathbb{E}_{(X, Y)\sim\Gamma}[c(X, Y)]$$
+			$$W_c(P_X, P_G) = \inf\limits_{\Gamma\in P(X\sim P_x, Y\sim P_G)}\mathbb{E}_{(X, Y)\sim\Gamma}[c(X, Y)]$$
 
 			Where $c(x, y)$ is some cost function.
 			When $c(x,y) = d^p(x, y)$ is a metric measurement, the $p$-th root of $W_c$ is called the p-Wasserstein distance.
 			When $c(x, y) = d(x, y)$ acn be defined as:
 
-			$$W_1(P_X, P_G) = \sum\limits_{f\in\mathcal{F}} \mathbb{E}_{X\sim P_X}[f(X)] - \mathbb{E}_{Y\sim P_G}[f(Y)]$$
+			$$W_1(P_X, P_G) = \sup\limits_{f\in\mathcal{F}} \mathbb{E}_{X\sim P_X}[f(X)] - \mathbb{E}_{Y\sim P_G}[f(Y)]$$
 
 			IN Wasserstein autoencoders the loss function is modified and the objective becomes:
 
-			$$D_{WAE}(P_X, P_G) = \in\limits_{Q(Z|X)\in\mathcal{Q}}\mathbb{E}_{P_X}\mathbb{E}_{Q(Z|X)}[c(X, G(Z))] + \lambda\cdot D_Z(Q_Z, P_Z)$$
+			$$D_{WAE}(P_X, P_G) = \inf\limits_{Q(Z|X)\in\mathcal{Q}}\mathbb{E}_{P_X}\mathbb{E}_{Q(Z|X)}[c(X, G(Z))] + \lambda\cdot D_Z(Q_Z, P_Z)$$
 
 			Where $Q$ is is the encoder and $G$ is the decoder.
 			The left part is the new reconstruction loss, which penalizes on the output distribution and the sample distribution.
@@ -179,4 +179,133 @@ In the latter case they are stacked together to a deep encoder.
 		A pretrained network can be used for creating a loss function for autoencoders.
 		After encoding and decoding an image, both are inserted as input to a pretrained network.
 		Assuming results with high accuracy, and a not so different domain, eac layer can be seen as a successful feature extractor of the input image.
-		THerefore instead of measuring the difference between two images, it can be measured between their representation, imposing a more realistic different measure for the autoencoder.
+		Therefore instead of measuring the difference between two images, it can be measured between their representation, imposing a more realistic different measure for the autoencoder.
+
+\section{Performance comparison of deep learning autoencoders for cancer subtype detection using multi-omics data}
+
+	\subsection{Introduction}
+	Different omics technologies provide the amility to interpret and explain the genome through DNA sequencing, genome expression, protein identification and others.
+	Such individual data is limited in the inofrmation on the molecular complexity occurring inside the organism.
+	Furthermore, the dimension and diversity of such data make it extremely challenging to perform proper data analysis that can efficiently fuse these data.
+	Multi-omics data integration is the method in which diverse types of omics data are combined as predictor variables.
+	This methods can allow for the identification of crucial genomic factors and biomarker, generate models and understand the genetics and genomics architecture of complex phenotypes.
+	Several data fusion model have been proposed: early, intermediate and late fusion.
+	One example is similarity network fusion where diverse types of data are normalized into a network through a non linear kernel function, next these networks are fused through an iterative fusion algorithm.
+	Also the deep-learning framework of autoencoders exhibited significant potential as data fusion algorithm.
+	The autoencoder generates new non linear features from its original input feature set.
+	They are algorithms for dimensionality reduction and heterogeneous data integration based on feed-forward neural networks.
+	They have a butterfly structure with number of neuron in input equals to the one in output and smaller hidden layers.
+	This design creates a compressed representation of the data while preserving the input data's most important feature.
+	It also allows it to concatenate the features and information of different omics sources.
+	A critical application of such data fusion algorithms is cancer subtype detection using omics data.
+	THe performance of four different autoencoders to integrate and reduce multi-omics data is used in this work.
+	By data fusion the autencoders created new features to represent the input datasets., used to implement a survival-based clustering algorithm to define groups of patients with a similar distribution of features and survival prognosis.
+
+	\subsection{Materials and methods}
+
+		\subsubsection{Dataset and prepossessing}
+		From the TGCA database data from glioblastoma multiforme, colon adenocarcinoma, kidney renal clear cell carcinoma and breast invasive carcinoma with data of gene expression, DNA methylation and miRNA expression.
+		From the datasets the most common patients where chosen and each data was scaled according to $x_n = \frac{x_i-x_{min}}{x_{max} - x_{min}}$.
+		The most important features where selected based on maximum variance.
+		These selected features where fed into the autoencoders as input.
+
+		\subsubsection{Autoencoder construction}
+
+			\paragraph{Vanilla autoencoder}
+			A vanilla autoencoder minimizes:
+
+			$$L(x, g(f(x))$$
+
+			Due to the non linearity of the encoder and decoder's activation function, the vanilla encoder learns non linear features from the data.
+			A vanilla autoencoders with multiple hidden layers is called a deep vanilla autoencoder.
+			This autoencoder has a high possibility of over-fitting.
+
+			\paragraph{Denoising autoencoder}
+			A denoising autencoder reconstructs the original input from a corrupt copy of an input minimizing:
+
+			$$L(x, g(f(\tilde{x}))$$
+
+			THe corrupt copy is formed introducing noise to the original input and denoising is achieved through stochastic mapping some input values to zero.
+			This helps the autoencoder learn features other than the original features directly from the data.
+
+			\paragraph{Sparse autoencoder}
+			A parse autoencoder is a regularized version of vanilla autoencoder with a sparsity penalty $\Omega(h)$ added to the bottleneck layer.
+			The learning minimizes:
+
+			$$L(x, g(f(x))+\Omega(h)$$
+
+			This helps to learn the important features of data even when there are meany hidden units in the autoencoder.
+
+			\paragraph{Variational autoencoder}
+			A variational autoencoder uses a strung assumption about latent variables, generally using a latent gaussian distribution.
+			It imposes a constraint in the encoder network, forcing the bottleneck layer to follow a Gaussian distibution.
+			It minimizes:
+
+			$$L(x, g(f(x))+L(l)$$
+
+			Where $L(l)$ is the latend loss, measured in terms of the Kullback-Leibler divergence of the bottleneck layer to a unit gaussian distribution, quantifying the difference between them.
+			THis generates the latent variable with a generalization of the network.
+
+		\subsubsection{Implementation}
+		For vanilla, denoising and sparse autoencoders, the hidden layers where $500$, $100$ and $500$ nodes and input and output of $1000$.
+		They were selected based on the maximum variance of three data types.
+		For the denoising a noise factor of $0.5$ was applied.
+		For sparse a $L_1$ regularization penalty of $0.01$ and an $L_2$ regularization penalty of $0.02$ on the nodes to induce sparsity was implemented.
+		Log variance and lambda layer were used to convert the standard deviation for numerical stability when necessary.
+		To optimize the autoencoders the ADAM algorithm was used and for vanilla, sparse and denoising the activation function for the input and hidden layer was the hyperbolic tangent and for the output the sigmoid.
+		For the variational a ReLU on the input and hidden and sigmoid on the output was used.
+		Tho measure the loss vbetween the input and output the means square error function was used for vanilla and denoising, the binary cross-entropy for sparse and the negative log-likelihood for variational.
+
+		\subsubsection{Clustering and subtyping}
+		The reduced number of features obtained from the bottleneck layer was used to apply standard subtyping methods.
+		First the similarity of each patient pair was calculated by euclidian distance and spearman correlation.
+		Then a clustering algorithm was used to cluster similar groups.
+		An unsupervised subtypes discovery method combined with k-means and partitioning around medoids was used for clustering.
+		k-means and PAM were used in a window between $3$ and $6$ clusters.
+
+		\subsubsection{Evaluation metrics for subtyping}
+		To evaluate the performance of the autoencoders survival analysis was used to evaluate the survival patterns from different subtypes.
+		Next the $p$-value of the log-rank test was used to identify the difference in Kaplan-Meier survival curves between different subtypes.
+		Low $p$-value ensure high confidence of different survival times for the different identified subtypes.
+		Also the silhouette width of the clusters was used to benchamrk the performance of clustering.
+		Silhouette scores measure how well a patient is matched to its identified cluster compared to other clusters.
+		High silhouette scores indicates a proper group distribution.
+
+		\subsubsection{COX model for feature selection}
+		To validate data fusion, the two datasets that obtained the lowest results with the feature selection by variance were selected and COX was used to make a new selection.
+		These new selected feature were used as input for the four different autoencoder implementations.
+
+		\subsubsection{Comparison with other data integration methods}
+		The results obtained were compared with SNF, PCA, kernel PCA and sparse PCA.
+		SNF fuses the similarty network to aggregate multi-omics data.
+		COX was used for the feature selection.
+		After that cluster from $3$ to $6$ where used for the clustering.
+		PCA, kernel PCA (non-linear), and sparse PCA (regularized) where used to transform datasets in which features where selected based on variance as input to k-means/PAM clutering.
+
+		\subsubsection{Differential expression and enrichment analysis on detected subtypes}
+		A differential expression and functional enrichment analysis of the clusters was perfumed.
+		DE genes and enriched processes where detected using LIMMA and ClusterProfiler respectively.
+
+
+	\subsection{Results}
+
+		\subsubsection{Performance of different autoencoders}
+		The silhouette score differs depending upon the regularization method: the optimal cluster number where selected counting the number of autoencoders that achieved a high silhouette score.
+		A log-rank test were used to check if the identified clusters have different survival profiles.
+		The lowest p-values with a high silhouette score for the optimal cluster number were considered as the final cluster prediction.
+		There is no single winner architecture and the performance varies depending on the dataset.
+
+		\begin{itemize}
+			\item[GBM] Cluster number $3$, variational autoencoder with PAM/Spearman.
+			\item[Coad] Cluster number $3$, vanilla autoencoder with PAM-Spearman.
+		\end{itemize}
+
+		\subsubsection{Different similarity measures}
+		PAM clustering with Spearman performed favorably than k-means clustering with Euclidian distance on the silhouette score, but worse on p-value for the survival difference between the identified clusters.
+
+		\subsubsection{Supervised feature selection}
+		Using a COX model there was a significant improvement of the $p$ value for survival difference between the clusters, but a decrese in the silhouette score.
+		Based on silhouette score VAE with Spearman was best.
+
+		\subsubsection{Other subtype detection methods}
+		PCA performed poorly, SNF comparable performance to autoencoders, but it has a few additional hyperparameters and the result is sensitive to their selection.
