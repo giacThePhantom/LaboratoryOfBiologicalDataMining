@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.5.23)  24 NOV 2021 17:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.5.23)  25 NOV 2021 13:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -948,7 +948,7 @@ Overfull \hbox (7.64615pt too wide) in paragraph at lines 398--402
 /m/n/10 H-VAE builds upon meta-learning ap-proaches
  []
 
-)
+) (./chapters/04_explainability.tex
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 22.48724pt, for example:
@@ -957,15 +957,46 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 
 (fancyhdr)                \addtolength{\topmargin}{-10.48724pt}.
 
-[25] (./build/principal.aux)
+[25]
+Chapter 4.
+[26
+
+]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 22.48724pt, for example:
+(fancyhdr)                \setlength{\headheight}{22.48724pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-10.48724pt}.
+
+[27]
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 22.48724pt, for example:
+(fancyhdr)                \setlength{\headheight}{22.48724pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-10.48724pt}.
+
+[28])
+
+Package fancyhdr Warning: \headheight is too small (12.0pt): 
+(fancyhdr)                Make it at least 22.48724pt, for example:
+(fancyhdr)                \setlength{\headheight}{22.48724pt}.
+(fancyhdr)                You might also make \topmargin smaller to compensate:
+
+(fancyhdr)                \addtolength{\topmargin}{-10.48724pt}.
+
+[29] (./build/principal.aux)
 Package rerunfilecheck Info: File `principal.out' has not changed.
-(rerunfilecheck)             Checksum: 9BFCEE92AF05539163C4D4917F820273;6510.
+(rerunfilecheck)             Checksum: 3AAC6FB765F6C5EA95DBA686128D7414;7835.
  ) 
 Here is how much of TeX's memory you used:
- 18601 strings out of 478994
- 315622 string characters out of 5864751
- 664394 words of memory out of 5000000
- 35656 multiletter control sequences out of 15000+600000
+ 18630 strings out of 478994
+ 316096 string characters out of 5864751
+ 664400 words of memory out of 5000000
+ 35663 multiletter control sequences out of 15000+600000
  424714 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  88i,23n,91p,657b,872s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -992,10 +1023,10 @@ xmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/
 type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm
 -super/sfti1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1000
 .pfb>
-Output written on ./build/principal.pdf (26 pages, 439326 bytes).
+Output written on ./build/principal.pdf (30 pages, 455263 bytes).
 PDF statistics:
- 485 PDF objects out of 1000 (max. 8388607)
- 427 compressed objects within 5 object streams
- 123 named destinations out of 1000 (max. 500000)
- 265 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 543 PDF objects out of 1000 (max. 8388607)
+ 481 compressed objects within 5 object streams
+ 142 named destinations out of 1000 (max. 500000)
+ 313 words of extra memory for PDF output out of 10000 (max. 10000000)
 

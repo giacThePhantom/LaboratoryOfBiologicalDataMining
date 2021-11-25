@@ -1,0 +1,119 @@
+\chapter{Explainability}
+
+\section{Causability and explainability of artificial intelligence in medicine}
+
+	\subsection{Introduction}
+	Recent research emphasizes more and more that AI systems should be able to build causal models of the world that support explanation and understanding.
+	The grand challenges of ML are in sense-making, context understanding and decision making under uncertainty.
+	The usable intelligence is difficult to reach because there is a need not only to learn from prior data, to extract knowledge, to generalize and to fight the curse of dimensionality, but to disentangle the underlying explanatory factors of the data in order to understand the context in an application domain.
+	In medicine challenges of AI regards the integration, fusion and mapping of distributed and heterogeneous data up to the visual analysis of these.
+	Explainable-AI in the context of medicine must take into account that diverse data may contribute to a relevant result.
+	So there is a need for AI approaches that are performing well, trustworthy, transparent, interpretable and explainable for a human expert.
+	Methods and models are necessary to reenact the machine decision making process, to reproduce and comprehend the learning and knowledge extraction.
+	This is important because it is necessary to understand the causality of learned representation for decision support.
+	The understanding of an AI model typically means a functional understanding of it, seeking to characterize the model's black-box behaviour without trying to elucidate its inner workings.
+	There is a discrimination between interpretation (mapping of an abstract concept into a domain that the human expert can perceive) and explanation (a collection of feature of the interpretable domain that have contributed to a given example to produce a decision).
+
+	\subsection{From explainability to causability}
+	In the real world ground truth cannot always be well defined and human models are often based on causality as an ultimate aim for understanding underlying mechanisms with correlation as an intermediate step.
+	When discussing the explainability of a machine statement there is a need to distinguish between:
+
+	\begin{itemize}
+		\item Explainability: in a technical sense highlights decision-relevant parts of the used representations of the algorithms and active parts in the algorithmic model that either contribute to its accuracy on the training set or to a specific observation.
+			It does not refer to an explicit human model.
+		\item Causability: as the extent to which an explanation of a statement to a human expert achieves a specified level of causal understanding with effectiveness, efficiency and satisfaction in a specified context of use.
+	\end{itemize}
+
+	Causability so refers to a human understandable model.
+	There is need for a distinction between and explainable model and an explanation interface, which make the results gained in the explainable model usable and useful.
+	Understanding is a bridge between perceiving and reasoning.
+	Eplaining means to provide causes of observed phenomena in a comprehensible manner through a linguistic description of its logical and causal relationships.
+	Causal explanations are the foundation of science in order to derive facts from laws and conditions in a deductive way.
+	Directly understandable are data with dimension $\le\mathbb{R}^3$, that humans are able to perceive in a physiological sense with respect to their previous knowledge.
+
+	\subsection{General approaches of explainable AI models}
+	There are two types of explainable AI: posthoc explainability, occurring after the event in question and ante-hoc explainability, occurring before the event in question.
+
+
+		\subsubsection{Posthoc systems}
+		Posthoc systems aim to provide local explanations for a specific decision and make it reproducible on demand.
+		An example si local interpretable model-agnostic explanation LIME, a model-agnostic system where $x\in\mathbb{R}^d$ is the original representation of an instance and $x'\in\mathbb{R}^{d'}$ is used to denote a vector for its interpretable repreesntation.
+		The goal is to identify an interpretable model over the interpretable representation that is locally faithful to the classifier.
+		The explanation model is $g:\mathbb{R}^{d'}\rightarrow\mathbb{R}$, with $g\in G$, and $G$ is a class of potentially interpretable models.
+		$g$ can be visualized as an explanation to the human expert.
+		Another example is black box explanations through transparent approximations BETA it explains the behaviour of any black-box classifier by simultaneously optimizing for fidelity to the original model and interpretability of the explanation.
+
+		\subsubsection{Ante-hoc systems}
+		Ante-hoc systems are interpretable by design towards glass-box approaches.
+		They are linear regression, decision trees and fuzzy inference systems.
+		An example are high performance generalized additive models with peirwise interactions or a visual explanations of the decisions of any classifier formulated as an additive model.
+
+		\subsubsection{Interpreting a deep neural network}
+		Typically NN are trained using supervised learning.
+		Several approaches to probe and interpret DNN exists.
+		Uncertainty provides a mearsure of how small perturbations of training data would change model parameters (model or epistemic uncertainty), or how input parameters changes would affect the prediction for one example (predictive or aleatoric variability).
+		Model parameters can be approximated through variational methods, resulting in uncertainty information of model weights and a means to derive predictive uncertainty.
+		This facilitates the appropriate use of model predictions.
+		Aleatoric uncertainty can be differentiated into homoscedatic uncertainty (independent of an input) and heteroscedatic uncertainty (changing with different inputs to the system.
+		Attribution seek to link a particular output of DAN to input variables.
+		The gradients of the output when changing individual input variables can be analysed, tracing the prediction uncertainty to the componenent of a multivariate input.
+		Activation maps can be used to identify parts of images relevant for a network prediction.
+		Activation maximization identifies input patterns that lead to maximal activations relating to specific classes in the output layer, making the visualization of prototypes classes possible and assessing which properties the model capture for classes.
+		This approach identifies highly probabile regions in the input space that create high output probabilities for a particular class.
+		These can be found by a data density model in the standard objective function $\log p(w_c |x) -\lambda||x||^2$ that is maximized during training.
+		The prototype is encouraged to produce strong class response and to resemble the data.
+		The newly defined objective can be identified as the class conditioned data density $p(x|w_c)$.
+		This corresponds to the most likely input $x$ for class $w_c$.
+		A possible choice for this is the Gaussian restricted Boltzmann machine RBM, a two-layer bipartite undirected graphical model with a set of binary hidden unite $p(h)$, a set of visible units $p(v)$ with symmetric connection between the two layers represented by a weight matrix $W$.
+		Its probability function is:
+
+		$$\log p(x) = \sum\limits_jf_j(x) - \frac{1}{2}x^T\Sigma^{-1}x + cst\qquad f_j(x) = \log(1 + e^{w_j^Tx+b_j})$$
+
+		In the case of model validation overfitting must be avoided as it could hide interesting failure modes of the model.
+		Slightly underfitting can be enough.
+		In the case of AM underfitting should be prevented because it could expose ptima $p(w_c|x)$ potentially distance from the data.
+
+			\paragraph{Unsupervised learning and generative models}
+			In certain application it is useful to provide a parametric representation of its density $p(x)$ or be able to sample from this density generating examples of the same type as the training examples.
+			Boltzmann machines, autoencoders and GA are able to sample from this distribution:
+
+			\begin{enumerate}
+				\item Sample from a simple distribution $q(z)\sim N(0, I)$ defined in an abstract code space $Z$.
+				\item Apply to the sample a decoding function $g:Z\rightarrow X$ that maps it back to the original input domain.
+			\end{enumerate}
+
+			The latent representation learned in these models can reflect complex relationship patterns in the data.
+			Also generating instances provides means to study the difference of examples to a class.
+			GANs can be incorporated in the maximization framework.
+			The optimization problem is:
+
+			$$\max\limits_{z\in Z}\log p(w_x|g(z))-\lambda||z||^2$$
+
+			Where the first term is a composition of the newly introduced decoder and the original classifier.
+			Once a solution $z^*$ to the optimization problem is found the prototype for $w_c$ is $x^* - g*(z^*)$.
+
+	\subsection{Future outlook}
+
+		\subsubsection{Weakly supervised learning}
+		Weakly supervised learning describes methods to construct predictive models by learning with weak supervision: incomplete, inexact or inaccureate.
+		Whole slide images can be classified according to widely  used scoring systems based on association with histomophological characteristics and an overall predictive score ad provide a relevance map generated observing the human expert during diagnosis making.
+
+		\subsubsection{Structural causal models}
+		Current AI work on a statistical or model-free mode.
+		This entails sever limits on effectiveness and performance.
+		They cannot reason about interventions and retrospection.
+		To achieve human level intelligence AI need the guidance of a model of reality.
+		To do so they propose a new visualization technique that can be trained by medical experts, as they can explore the underlying explanatory factors of the data and formalize a structural causal model of human decision making making and mapping feature in these to DL approaches.
+
+		\subsubsection{Develop causability as a new scientific field}
+		There is a need to develop causability methodologies based on clear scientific principles and theories of causality in order to establish causability as a scientific field
+		Causability measures must ensure the quality of explanation.
+		According to the three layer causal hierarchy:
+
+		\begin{itemize}
+			\item[Level 1]: Association $P(y|x)$ with the typical activity of seeing.
+			\item[Level 2]: Intervention $P(y|do(x), z)$ with the typical activity of doing.
+			\item[Level 3]: counterfactuals $P(y_x|x', y')$ with the typical activity of retrospections.
+		\end{itemize}
+
+		For each of these levels there is a need to develop methods to measure effectiveness, efficiency and user satisfaction.
