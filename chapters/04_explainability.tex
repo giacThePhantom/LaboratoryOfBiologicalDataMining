@@ -107,7 +107,7 @@
 
 		\subsubsection{Develop causability as a new scientific field}
 		There is a need to develop causability methodologies based on clear scientific principles and theories of causality in order to establish causability as a scientific field
-		Causability measures must ensure the quality of explanation.
+		Ca usability measures must ensure the quality of explanation.
 		According to the three layer causal hierarchy:
 
 		\begin{itemize}
@@ -117,3 +117,101 @@
 		\end{itemize}
 
 		For each of these levels there is a need to develop methods to measure effectiveness, efficiency and user satisfaction.
+
+\section{Explainable artificial intelligence: an analytical review}
+
+	\subsection{Introduction}
+	Deep learning is often characterized as a black box and opaque approach because of its large number of weights.
+	On top of that their link to the physical environment is hard to isolate.
+	This is problematic in highly sensitive areas.
+	Because of its evergrowing importance the issues of transparency and explainability are increasingly critical.
+	This is because this type of model can easily fool users and lead to dangerous or fatal consequences.
+	The AI systems of the future will have to emulate the capabilities of humans to learn from very few examples and understand the concept behind the classification decision and articulate it to others.
+
+	\subsection{XAI taxonomi}
+
+	\begin{itemize}
+		\item Transparency: a model is considered to be transparent if it has the potential to be understandable by itself.
+		\item Interpretability: is defined as the capacity to provide interpretations in terms that are understandable to a human.
+		\item Explainability: is related with the notion of exmplanation as an interface between humans and IA systems.
+	\end{itemize}
+
+	The ontology and taxonomy of XAI at a high level can be detailed:
+
+	\begin{itemize}
+		\item Transparent models: the decisions from these models are transparent.
+		\item Opaque model: they are not transparent even though they obtain high transparency.
+		\item Model agnostic: they are generally applicable and they have to be flexible enough so that they do not depend on the intrinsic architecture of the model and  they operate solely on the basis of relating the input to its outputs.
+		\item Model specific: often take advantage of knowing a specific model and aim to bring transparency to a particular type of one or several models.
+		\item Explanation by simplification: in these way alternatives to the original can be found to explain the prediction we are interested in.
+			A linear model or a decision tree can be built around the predictions of a model, using the resulting model as a surrogate to explain the more complex one.
+		\item Explanation by feature relevance: they attempt to evaluate a feature based on its average expected marginal contribution to the model's decision after all possible combinations have been considered.
+		\item Visual explanation: the family of data visualization approaches can be exploited to interpret the prediction or decision over the input data.
+		\item Local explanation: they approximate the model in a narrow area, around a specific instance of interest and offer information about how the model operates when encountering inputs that are similar to the one interested in explaining.
+	\end{itemize}
+
+	XAI taxonomy is divided in scope (local or global), usage (post hoc, surrogate models and intrinsic to the model architecture) and methodology (focused on the features or on the model parameters).
+	The following fundamental principles which an AI must honour to be considered a XAI are:
+
+	\begin{itemize}
+		\item Explanation: an AI system must supply evidence, support or reasoning for each decision made by the system.
+		\item Meaningful: the explanation provided by the system must be understandable by its user.
+			This must be fine-tuned to meet the various characteristics of each group of users.
+		\item Accuracy: the explanation provided by the system must reflect accurately the system's processes.
+		\item Knowledge limits: systems must identify cases that they were not designed to operate in and where their answer may not be reliable.
+	\end{itemize}
+
+	\subsection{State of the art}
+
+		\subsubsection{Feature oriented methods}
+		Shapley additive explanation (SHAP) is a game-theoretic approach to explain ML predictions.
+		It seeks to deduce the amount each feature contributed to the decision by representing them as players in a coalition game.
+		The pay-off is an additive measure of importance, the weighted average contribution of a particular feature within every possible combination of feature.
+		Local and global interpretations are consistent and the average prediction is distributed across all Shapley values, meaning that contrasting comparisons between explanations are possible.
+		If the model is non additive then the interpretation of the values is not always transparent.
+
+			\paragraph{Class activation maps}
+			They are specific to CNNs, the per-class weighted linear sum of visual patterns present at various spatial locations.
+			Global average pooling is applied to the final convulational feature map, which are then used as input features to a fully connected layer and output through a loss function.
+			Projecting these wights of the output back to the previous convolutional layer, the areas in the input image with grater influence are highlighted per-class.
+			Gradient-CAM generalize CAM to any arbitrary CNN architecture.
+			The gradients for any target class are fed into the final convulational layer and an importance score computed in respect to the gradients.
+
+		\subsubsection{Global methods}
+		Global attribution mappings GAMs can explain NN's predictions on a global level for features with precise semantic definitions by formulating attributions as weighted conjoined rankings.
+		Different subpopulation can be captured though a tunable granularity parmeter.
+		They find a peri-wise rank distance matrix between features and a K-medoids clustering algorithm groups local feature importances into clusters.
+		The medoid summarizes the pattern detected in each cluster as a global attribution.
+
+			\paragraph{Gradient-based saliency maps}
+			They are a visualization technique which render the absoulute value of the gradient of the majority predicted class as a normlized heatmap.
+			The user can look at what features in the image are being used in the classification decision.
+
+			\paragraph{Deep attribute maps}
+			They are a technique for rendering the explainability of gradient-based methods.
+			They evaluate between different saliencey-based explanation models.
+			The gradient of the output is multiplied by the respective input to generate an explanation of a model's prediction in the form of a heatmap.
+
+		\subsubsection{Concept models}
+		Concept attivation vectors is a technique to explain globally the internal states of a NN by mapping human understandable features extracted by the NN.
+		They represent the degree to which these abstract features point towards a set of human understandable concepts chosen by a user.
+		Explaining the associated concept make possible to determine any defects in the decision-making process the model has learned.
+		Automatic concept based explanations extract CAVs automatically without human supervision removing human bias.
+		These concept are segmented at various spatial resolutions from in-class images.
+		They are reliant on the concepts being uniquely meaningful to the class and the effectiveness of explanation is adversely affected if a chosen concept is commonly present in multiple classes.
+
+		\subsubsection{Surrogate models}
+		Local interpretable model-agnostic explanations LIME is a model-agnostic technique to create locally optimized explanations of ML models.
+		LIME trains an interpretable surrogate model to learn the local behaviour of a global black-box model's prediction.
+		An input image is divided into patches of contiguous superpixels and a weighted local model is trained on a new set of permuted instances of the oridingal image.
+		By changing aspects of the input data human understandable and learning the differences between those perturbations and the original one can learn what about the input contributed to each class score.
+
+		\subsubsection{Local, pixel-based methods}
+		Layer-wise relevance propagation LRP uses predefined propagation rules to provide an explanation of a multilayered neural network's output in respect ot the input.
+		It renders a heatmap, providing insight into which pixels contributed to the model's prediction and the extent to which they did.
+		It hilights positive contributions to a network's decision.
+		This process is posthoc and provides only a simplivide distillation of the features' role in the decision.
+
+		\subsubsection{Human-centric methods}
+		A cardinally different approach to explainability was proposed, which treats it as a human-centric pheonomena.
+		People use similarity to associate new data with previously learned and aggregated prototypes, while statistic is based on averages.

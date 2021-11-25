@@ -45,6 +45,6 @@ Legend [ ] TO DO [X] DONE [~] IN PROGRESS
 	*[X] performance-comparison-of-deep-learning-autoencoders-for-cancer-subtype-detection-using-multi-omics-data.pdf
 	*[X] variational-autoencoders-for-cancer-data-integration-design-principles-and-computational-practice.pdf
 	*[X] causability-and-explainability-of-artificial-intelligence-in-medicine.pdf
-	*[ ] explainable-artificial-infelligence-analytical-review.pdf
+	*[X] explainable-artificial-infelligence-analytical-review.pdf
 	*[ ] artificial-intelligence-in-drug-discovery.pdf
 	*[ ] artificial-intelligence-in-drugo-discovery-part-2.pdf

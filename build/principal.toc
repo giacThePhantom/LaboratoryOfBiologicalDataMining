@@ -101,3 +101,16 @@
 \contentsline {subsubsection}{\numberline {4.1.4.1}Weakly supervised learning}{28}{subsubsection.4.1.4.1}%
 \contentsline {subsubsection}{\numberline {4.1.4.2}Structural causal models}{29}{subsubsection.4.1.4.2}%
 \contentsline {subsubsection}{\numberline {4.1.4.3}Develop causability as a new scientific field}{29}{subsubsection.4.1.4.3}%
+\contentsline {section}{\numberline {4.2}Explainable artificial intelligence: an analytical review}{29}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Introduction}{29}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}XAI taxonomi}{29}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}State of the art}{30}{subsection.4.2.3}%
+\contentsline {subsubsection}{\numberline {4.2.3.1}Feature oriented methods}{30}{subsubsection.4.2.3.1}%
+\contentsline {paragraph}{\numberline {4.2.3.1.1}Class activation maps}{31}{paragraph.4.2.3.1.1}%
+\contentsline {subsubsection}{\numberline {4.2.3.2}Global methods}{31}{subsubsection.4.2.3.2}%
+\contentsline {paragraph}{\numberline {4.2.3.2.1}Gradient-based saliency maps}{31}{paragraph.4.2.3.2.1}%
+\contentsline {paragraph}{\numberline {4.2.3.2.2}Deep attribute maps}{31}{paragraph.4.2.3.2.2}%
+\contentsline {subsubsection}{\numberline {4.2.3.3}Concept models}{31}{subsubsection.4.2.3.3}%
+\contentsline {subsubsection}{\numberline {4.2.3.4}Surrogate models}{31}{subsubsection.4.2.3.4}%
+\contentsline {subsubsection}{\numberline {4.2.3.5}Local, pixel-based methods}{32}{subsubsection.4.2.3.5}%
+\contentsline {subsubsection}{\numberline {4.2.3.6}Human-centric methods}{32}{subsubsection.4.2.3.6}%
