@@ -1,0 +1,111 @@
+\chapter{Artificial intelligence in drug discovery}
+
+\section{Artificial intelligence in drug discovery - part 1}
+
+	\subsection{Context}
+	The application of algorithms in drug discovery needs at its core to consider which data are being analysed and which methods are used for this purpose.
+	The major developments that have been proposed for this are:
+
+	\begin{multicols}{2}
+		\begin{enumerate}
+			\item Flowering of computational thermodynamics.
+			\item Learning to turn potent ligands into drug candidates.
+			\item New classes of drug targets which will challenge the competencies.
+			\item Encountering novel molecular mechanism for drug efficacy.
+			\item Leaning to model an entire signal transduction pathway and use that to better select drug targets.
+			\item The technology will disperse.
+			\item Virtual screening will become routine.
+		\end{enumerate}
+	\end{multicols}
+
+	Most of this has become reality.
+	In vivo pharmacokinetics and metabolism are still tricky to deal with and modelling entire signal transduction pathways is possible on a local basis, but the full impact is difficult to ascertain.
+	Giving these tools to medicinal chemists is a challenge due to the difference in thinking and approaches.
+	The difficult part of current computational drug-discovery is the understanding of more complex biology.
+	This is because on a biological system is more difficult to define a finite set of parameter and so there is more uncertainty.
+	We are unable to determine which variables matter, define them experimentally and label the biology for AI to succeed on the level that is compatible with the current investment and hope in the area.
+
+	\subsection{Quality versus speed}
+	It can be seen that a reduction of the failure rate has the most significant impact on project value overall, more than reduction of cost of a phase or a decrease in the amount of time of a pahse.
+	This has the most impact in the clinical phase.
+	AI can make decision faster and more cheaply and lead to better decision.
+	In the context of drug discovery the last aspect will have the biggest impact.
+	So for drug-discovery AI needs to support:
+
+	\begin{multicols}{2}
+		\begin{enumerate}
+			\item Better compounds going into clinical trial.
+			\item Better validated targets.
+			\item Better patient selection.
+			\item Better conductance of trials.
+		\end{enumerate}
+	\end{multicols}
+
+	For AI to show its value in drug discovery the focus needs to shift from the early stage with Pearson correlation and RMSE.
+	This is so the sole focus of models is not only on incrementally improving numerical values obtained fr models or proxy measures of success.
+
+	\subsection{Current analytical way of drug discovery using isolated mechanisms and targets}
+	In biology deficiencies in one or more of the components are the cause of disease and their modulation will allow to cure it.
+	SO this is the process of drug discovery via isolated model systems.
+	This is limited due to the connectivity of biology with dynamics often unknown, insufficiently formalized and quantified.
+	Phenotypic screening has attempted to merge disease-relevant biology with large numbers of compounds that can be screened.
+	This comprises a lot of hypothesis-driven and hypothesis-free readouts.
+	If the former is true the argument for a phenotypic screen is decreased and the understanding of the high-dimensional readout can be non-trivial.
+	Target identification is still a problem, so phenotypic screening incorporate some biological complexity, but it is not able to recapitulate intracellular organ toxicity to a reasonable extent.
+	The basic principle of modern drug discovery is to identify a protein that does not function as needed in a diseased system and find modulators of that mechanism.
+	This doesn't deal with the undesired effects and interaction that this molecule can have in vivo.
+	This approach is plausible only in the case of monocausal diseases.
+	Also achieving activity in a model system neglects the question of whether the compound reaches its intended target site, it is able to revert the diseaed phenotype and it achieves the goal with tolerable side effects.
+	Many current approaches of AI aim to transfer methods from image or speech recognition with the aim of improving the prediction of a particular molecular property end point quantitatively.
+
+	\subsection{Chemical and biological properties of relevance for drug discovery and the extent to which they are captured in current data}
+
+	\begin{table}[H]
+		\centering
+		\begin{tabular}{|c|c|c|}
+			\hline
+			Assays & Comments & Useful as predictor for human in vivo situation?\\
+			\hline
+			\makecell{On-target activity \\as a proxy for\\efficacy} & \makecell{Target validation \\difficult, weak links between\\individual targets\\ and phenotypic effects} & \makecell{Target engagement in vivo\\ is frequently sufficient for causing\\phenotypic effects, however\\ activity on a target in isolated\\protein or cellular assays\\ often differs from the situation in vivo}\\
+			\hline
+			\makecell{Physiochmical\\properties} & \makecell{Relevant for almost\\any aspect of drug\\development owing to\\the application of drugs in\\largely aqueous biological\\systems} & \makecell{Crucial especially for orally\\administered drugs, broad\\correlation with many drug\\properties, especially in ADME space\\needs to be considered\\in combination with\\other compound properties}\\
+			\hline
+			\makecell{PK and points} & \makecell{Generally simplified cellular\\systems to anticipate\\uptake, metabolism and\\transport of compounds\\across body compartments.\\Simplified version} & \makecell{Organs and tissues\\more complex and\\heterogeneous. Adaptive\\responses and impact\\of the microbiome\\neglected}\\
+			\hline
+			\makecell{Cellular\\toxicity} & \makecell{Human HepG2 surrogate\\effects of toxicity\\in liver,\\cytotoxicity early stage\\marker for adverse effects of\\compounds} & \makecell{Heterogeneity\\not considered}\\
+			\hline
+			\makecell{Heterogeneous cell\\cultures} & \makecell{Resemble organ systems\\better} & \makecell{More representative\\more difficulte to handle}\\
+			\hline
+			\makecell{Toxicity\\Safety} & \makecell{Many proxy end points\\ on individual readouts} & \makecell{Therapeutic index\\difference in exposure between\\efficacy and safety.\\Estimate organ based\\toxicity in\\quantitative way}\\
+			\hline
+			\makecell{Animal models} & \makecell{Representitativeness\\and predictivity\\not a given} & \makecell{Depends on the case}\\
+			\hline
+		\end{tabular}
+	\end{table}
+
+	\subsection{Current landscape}
+
+		\subsubsection{De novo design}
+		In de novo design there is forward prediction and retrosynthesis prediction.
+		They aim to identift how chemical matter can be synthesized.
+
+		\subsubsection{Docking}
+		Docking deals with discerning if the ligand, once in place, binds to a target.
+
+		\subsubsection{Connection from mode of action to phenotypic effect}
+		Connection with genetic support and functional genomics.
+
+		\subsubsection{Integration}
+		Integrating ligand-protein activity and target identification and PC properties of the compound in an integrated matter is still missing and would involge modelling the interactions of a small molecule with all of its interaction partners, addressing the question of target expression in the disease tissue and its involvement of disease modulation, including the PK behaviour of a molecule with respect to the in vivo system and considering safety in parallel with efficacy.
+
+	\subsection{Validation of AI models in drug discovery}
+	If AI approaches for drug discovery only end up generating a ligand for a protein, then there is no evidence that this will help drug discovery as a whole.
+	There is a need to move to more complex biologica systems earlier.
+	This means including more predictive end points in models.
+	There are no control experiments being conducted when AI delivers new compounds.
+	Given that a drug coming to marker is a long series of choice it is impossible to disentangle whether the end product is a result of the method applied or the result of subjective choices on which compound to test.
+	The large chemical space tends to lead to trivial validation examples, also method validation in the chemical domain is difficult.
+	One is never able to truly prospectively test models, except with a very large prospective experiments and controls.
+	The performance reported and the data are related.
+	Comparative benchmarking datasets are retrospective but a true estimate of model performance is unobtainable.
+	Also there is a need to develop algorithms considering the medical domain to avoid biases and to be able to handle biological drifts.

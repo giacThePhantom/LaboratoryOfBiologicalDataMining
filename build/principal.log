@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.5.23)  25 NOV 2021 16:40
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.5.23)  27 NOV 2021 12:16
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -649,6 +649,13 @@ Package mhchem Warning: You did not specify a 'version' option for the mhchem
 (mhchem)                different output with the same input in future versions
 .
 
+) (/usr/share/texmf-dist/tex/latex/float/float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count335
+\float@exts=\toks29
+\float@box=\box117
+\@float@everytoks=\toks30
+\@floatcapt=\box118
 )) (./build/principal.aux)
 \openout1 = `principal.aux'.
 
@@ -705,7 +712,7 @@ LaTeX Font Info:    ... okay on input line 9.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-\c@lstlisting=\count335
+\c@lstlisting=\count336
 Package hyperref Info: Link coloring OFF on input line 9.
 (/usr/share/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -716,7 +723,7 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 (/usr/share/texmf-dist/tex/generic/gettitlestring/gettitlestring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count336
+\c@section@level=\count337
 )
 LaTeX Info: Redefining \ref on input line 9.
 LaTeX Info: Redefining \pageref on input line 9.
@@ -735,20 +742,21 @@ File: siunitx-abbreviations.cfg 2017/11/26 v2.7k siunitx: Abbreviated units
 Dictionary: translator-basic-dictionary, Language: English 
 )
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: float package is loaded.
 Package caption Info: End \AtBeginDocument code.
  (/usr/share/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count337
+\scratchcounter=\count338
 \scratchdimen=\dimen271
-\scratchbox=\box117
-\nofMPsegments=\count338
-\nofMParguments=\count339
-\everyMPshowfont=\toks29
-\MPscratchCnt=\count340
+\scratchbox=\box119
+\nofMPsegments=\count339
+\nofMParguments=\count340
+\everyMPshowfont=\toks31
+\MPscratchCnt=\count341
 \MPscratchDim=\dimen272
-\MPnumerator=\count341
-\makeMPintoPDFobject=\count342
-\everyMPtoPDFconversion=\toks30
+\MPnumerator=\count342
+\makeMPintoPDFobject=\count343
+\everyMPtoPDFconversion=\toks32
 ) (/usr/share/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -985,18 +993,27 @@ Overfull \hbox (7.21819pt too wide) in paragraph at lines 191--194
 h-nique for ren-der-ing the ex-plain-abil-ity of gradient-
  []
 
-[31]) [32] (./build/principal.aux)
+[31]) (./chapters/05_drug_discovery.tex [32]
+Chapter 5.
+[33
+
+]
+Overfull \hbox (18.4344pt too wide) in paragraph at lines 65--84
+ [][] 
+ []
+
+) [34] [35] (./build/principal.aux)
 Package rerunfilecheck Info: File `principal.out' has not changed.
-(rerunfilecheck)             Checksum: D8FB2427AF25C81358F16A1AAE9DFA67;8588.
+(rerunfilecheck)             Checksum: B2F46939C57447427AD3A855B792FAD9;10661.
  ) 
 Here is how much of TeX's memory you used:
- 18650 strings out of 478994
- 316426 string characters out of 5864751
- 664403 words of memory out of 5000000
- 35667 multiletter control sequences out of 15000+600000
+ 18733 strings out of 478994
+ 317518 string characters out of 5864751
+ 666959 words of memory out of 5000000
+ 35722 multiletter control sequences out of 15000+600000
  424714 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 88i,23n,91p,657b,872s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 88i,23n,91p,790b,872s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}{/usr/share/t
 exmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc}</usr/share/texmf-dist/font
 s/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texmf-dist/fonts/type1/public
@@ -1020,10 +1037,10 @@ xmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/
 type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm
 -super/sfti1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1000
 .pfb>
-Output written on ./build/principal.pdf (33 pages, 465140 bytes).
+Output written on ./build/principal.pdf (36 pages, 474766 bytes).
 PDF statistics:
- 590 PDF objects out of 1000 (max. 8388607)
- 524 compressed objects within 6 object streams
- 158 named destinations out of 1000 (max. 500000)
- 345 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 648 PDF objects out of 1000 (max. 8388607)
+ 579 compressed objects within 6 object streams
+ 179 named destinations out of 1000 (max. 500000)
+ 393 words of extra memory for PDF output out of 10000 (max. 10000000)
 
