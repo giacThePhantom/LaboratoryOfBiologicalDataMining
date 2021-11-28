@@ -47,4 +47,4 @@ Legend [ ] TO DO [X] DONE [~] IN PROGRESS
 	*[X] causability-and-explainability-of-artificial-intelligence-in-medicine.pdf
 	*[X] explainable-artificial-infelligence-analytical-review.pdf
 	*[X] artificial-intelligence-in-drug-discovery.pdf
-	*[ ] artificial-intelligence-in-drugo-discovery-part-2.pdf
+	*[X] artificial-intelligence-in-drugo-discovery-part-2.pdf

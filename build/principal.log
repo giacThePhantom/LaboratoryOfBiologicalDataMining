@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.5.23)  27 NOV 2021 12:16
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021/Arch Linux) (preloaded format=pdflatex 2021.5.23)  28 NOV 2021 16:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1002,15 +1002,15 @@ Overfull \hbox (18.4344pt too wide) in paragraph at lines 65--84
  [][] 
  []
 
-) [34] [35] (./build/principal.aux)
+[34] [35] [36]) [37] (./build/principal.aux)
 Package rerunfilecheck Info: File `principal.out' has not changed.
-(rerunfilecheck)             Checksum: B2F46939C57447427AD3A855B792FAD9;10661.
+(rerunfilecheck)             Checksum: 85D5A02088FA144C16518BD61F0910F8;12826.
  ) 
 Here is how much of TeX's memory you used:
- 18733 strings out of 478994
- 317518 string characters out of 5864751
- 666959 words of memory out of 5000000
- 35722 multiletter control sequences out of 15000+600000
+ 18753 strings out of 478994
+ 317844 string characters out of 5864751
+ 668962 words of memory out of 5000000
+ 35729 multiletter control sequences out of 15000+600000
  424714 words of font info for 82 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  88i,23n,91p,790b,872s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1037,10 +1037,10 @@ xmf-dist/fonts/type1/public/cm-super/sfrm1000.pfb></usr/share/texmf-dist/fonts/
 type1/public/cm-super/sfrm1200.pfb></usr/share/texmf-dist/fonts/type1/public/cm
 -super/sfti1000.pfb></usr/share/texmf-dist/fonts/type1/public/cm-super/sftt1000
 .pfb>
-Output written on ./build/principal.pdf (36 pages, 474766 bytes).
+Output written on ./build/principal.pdf (38 pages, 483713 bytes).
 PDF statistics:
- 648 PDF objects out of 1000 (max. 8388607)
- 579 compressed objects within 6 object streams
- 179 named destinations out of 1000 (max. 500000)
- 393 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 703 PDF objects out of 1000 (max. 8388607)
+ 631 compressed objects within 7 object streams
+ 192 named destinations out of 1000 (max. 500000)
+ 449 words of extra memory for PDF output out of 10000 (max. 10000000)
 
